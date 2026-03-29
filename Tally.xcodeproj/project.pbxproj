@@ -11,6 +11,30 @@
 		FE8416C12F797D8700F09B6A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416C02F797D8700F09B6A /* ContentView.swift */; };
 		FE8416C32F797D8B00F09B6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE8416C22F797D8B00F09B6A /* Assets.xcassets */; };
 		FE8416C62F797D8B00F09B6A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FE8416C52F797D8B00F09B6A /* Preview Assets.xcassets */; };
+		FE8416D72F797EAB00F09B6A /* Habit.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416D62F797EAB00F09B6A /* Habit.swift */; };
+		FE8416DB2F797EBE00F09B6A /* HabitLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416DA2F797EBE00F09B6A /* HabitLog.swift */; };
+		FE8416DE2F797ED000F09B6A /* HabitType.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416DD2F797ED000F09B6A /* HabitType.swift */; };
+		FE8416E12F797EE400F09B6A /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416E02F797EE400F09B6A /* HomeViewModel.swift */; };
+		FE8416E42F797EF900F09B6A /* HabitDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416E32F797EF900F09B6A /* HabitDetailViewModel.swift */; };
+		FE8416EB2F797F7300F09B6A /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416EA2F797F7300F09B6A /* HomeView.swift */; };
+		FE8416EE2F797F8600F09B6A /* HabitCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416ED2F797F8600F09B6A /* HabitCardView.swift */; };
+		FE8416F12F797F9C00F09B6A /* HabitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416F02F797F9C00F09B6A /* HabitDetailView.swift */; };
+		FE8416F82F797FF700F09B6A /* MilestoneBadgeRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416F72F797FF700F09B6A /* MilestoneBadgeRow.swift */; };
+		FE8416FB2F79801E00F09B6A /* AddHabitSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416FA2F79801E00F09B6A /* AddHabitSheet.swift */; };
+		FE8416FE2F79803600F09B6A /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8416FD2F79803600F09B6A /* ProgressRingView.swift */; };
+		FE8417012F79805000F09B6A /* StreakCounterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417002F79805000F09B6A /* StreakCounterView.swift */; };
+		FE8417042F79807500F09B6A /* MilestoneOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417032F79807500F09B6A /* MilestoneOverlay.swift */; };
+		FE8417082F7980AE00F09B6A /* StreakEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417072F7980AE00F09B6A /* StreakEngine.swift */; };
+		FE84170B2F7980C000F09B6A /* MilestoneService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84170A2F7980C000F09B6A /* MilestoneService.swift */; };
+		FE84170E2F7980E100F09B6A /* ParticleBurstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84170D2F7980E100F09B6A /* ParticleBurstView.swift */; };
+		FE8417112F7980FB00F09B6A /* FlameAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417102F7980FB00F09B6A /* FlameAnimationView.swift */; };
+		FE8417142F79811000F09B6A /* LightingEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417132F79811000F09B6A /* LightingEffectView.swift */; };
+		FE8417172F79812800F09B6A /* SupernovaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417162F79812800F09B6A /* SupernovaView.swift */; };
+		FE84171A2F79813700F09B6A /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417192F79813700F09B6A /* DateHelpers.swift */; };
+		FE84171D2F79814800F09B6A /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84171C2F79814800F09B6A /* HapticManager.swift */; };
+		FE8417202F79817E00F09B6A /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */; };
+		FE8417232F79819200F09B6A /* MilestoneServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */; };
+		FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +44,30 @@
 		FE8416C22F797D8B00F09B6A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FE8416C52F797D8B00F09B6A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FE8416C72F797D8B00F09B6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FE8416D62F797EAB00F09B6A /* Habit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Habit.swift; sourceTree = "<group>"; };
+		FE8416DA2F797EBE00F09B6A /* HabitLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitLog.swift; sourceTree = "<group>"; };
+		FE8416DD2F797ED000F09B6A /* HabitType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitType.swift; sourceTree = "<group>"; };
+		FE8416E02F797EE400F09B6A /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		FE8416E32F797EF900F09B6A /* HabitDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailViewModel.swift; sourceTree = "<group>"; };
+		FE8416EA2F797F7300F09B6A /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		FE8416ED2F797F8600F09B6A /* HabitCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitCardView.swift; sourceTree = "<group>"; };
+		FE8416F02F797F9C00F09B6A /* HabitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitDetailView.swift; sourceTree = "<group>"; };
+		FE8416F72F797FF700F09B6A /* MilestoneBadgeRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneBadgeRow.swift; sourceTree = "<group>"; };
+		FE8416FA2F79801E00F09B6A /* AddHabitSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddHabitSheet.swift; sourceTree = "<group>"; };
+		FE8416FD2F79803600F09B6A /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
+		FE8417002F79805000F09B6A /* StreakCounterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakCounterView.swift; sourceTree = "<group>"; };
+		FE8417032F79807500F09B6A /* MilestoneOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneOverlay.swift; sourceTree = "<group>"; };
+		FE8417072F7980AE00F09B6A /* StreakEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngine.swift; sourceTree = "<group>"; };
+		FE84170A2F7980C000F09B6A /* MilestoneService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneService.swift; sourceTree = "<group>"; };
+		FE84170D2F7980E100F09B6A /* ParticleBurstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParticleBurstView.swift; sourceTree = "<group>"; };
+		FE8417102F7980FB00F09B6A /* FlameAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlameAnimationView.swift; sourceTree = "<group>"; };
+		FE8417132F79811000F09B6A /* LightingEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightingEffectView.swift; sourceTree = "<group>"; };
+		FE8417162F79812800F09B6A /* SupernovaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupernovaView.swift; sourceTree = "<group>"; };
+		FE8417192F79813700F09B6A /* DateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
+		FE84171C2F79814800F09B6A /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
+		FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneServiceTests.swift; sourceTree = "<group>"; };
+		FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeatMapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +104,13 @@
 				FE8416C02F797D8700F09B6A /* ContentView.swift */,
 				FE8416C22F797D8B00F09B6A /* Assets.xcassets */,
 				FE8416C72F797D8B00F09B6A /* Info.plist */,
+				FE8416CE2F797DC100F09B6A /* Models */,
+				FE8416CF2F797DCA00F09B6A /* ViewModels */,
+				FE8416D02F797DD500F09B6A /* Views */,
+				FE8416D12F797DE000F09B6A /* Services */,
+				FE8416D22F797E0400F09B6A /* Animations */,
+				FE8416D32F797E0D00F09B6A /* Utilities */,
+				FE8416D52F797E2600F09B6A /* Tests */,
 				FE8416C42F797D8B00F09B6A /* Preview Content */,
 			);
 			path = Tally;
@@ -67,6 +122,111 @@
 				FE8416C52F797D8B00F09B6A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FE8416CE2F797DC100F09B6A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416D62F797EAB00F09B6A /* Habit.swift */,
+				FE8416DA2F797EBE00F09B6A /* HabitLog.swift */,
+				FE8416DD2F797ED000F09B6A /* HabitType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FE8416CF2F797DCA00F09B6A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416E02F797EE400F09B6A /* HomeViewModel.swift */,
+				FE8416E32F797EF900F09B6A /* HabitDetailViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		FE8416D02F797DD500F09B6A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416E62F797F0100F09B6A /* Home */,
+				FE8416E72F797F0C00F09B6A /* Detail */,
+				FE8416E82F797F3700F09B6A /* Creation */,
+				FE8416E92F797F3F00F09B6A /* Shared */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		FE8416D12F797DE000F09B6A /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				FE8417072F7980AE00F09B6A /* StreakEngine.swift */,
+				FE84170A2F7980C000F09B6A /* MilestoneService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FE8416D22F797E0400F09B6A /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				FE84170D2F7980E100F09B6A /* ParticleBurstView.swift */,
+				FE8417102F7980FB00F09B6A /* FlameAnimationView.swift */,
+				FE8417132F79811000F09B6A /* LightingEffectView.swift */,
+				FE8417162F79812800F09B6A /* SupernovaView.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
+		FE8416D32F797E0D00F09B6A /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				FE8417192F79813700F09B6A /* DateHelpers.swift */,
+				FE84171C2F79814800F09B6A /* HapticManager.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
+		FE8416D52F797E2600F09B6A /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */,
+				FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		FE8416E62F797F0100F09B6A /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416EA2F797F7300F09B6A /* HomeView.swift */,
+				FE8416ED2F797F8600F09B6A /* HabitCardView.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		FE8416E72F797F0C00F09B6A /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416F02F797F9C00F09B6A /* HabitDetailView.swift */,
+				FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */,
+				FE8416F72F797FF700F09B6A /* MilestoneBadgeRow.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		FE8416E82F797F3700F09B6A /* Creation */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416FA2F79801E00F09B6A /* AddHabitSheet.swift */,
+			);
+			path = Creation;
+			sourceTree = "<group>";
+		};
+		FE8416E92F797F3F00F09B6A /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				FE8416FD2F79803600F09B6A /* ProgressRingView.swift */,
+				FE8417002F79805000F09B6A /* StreakCounterView.swift */,
+				FE8417032F79807500F09B6A /* MilestoneOverlay.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +298,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FE8417232F79819200F09B6A /* MilestoneServiceTests.swift in Sources */,
+				FE8416D72F797EAB00F09B6A /* Habit.swift in Sources */,
+				FE84170E2F7980E100F09B6A /* ParticleBurstView.swift in Sources */,
+				FE84170B2F7980C000F09B6A /* MilestoneService.swift in Sources */,
+				FE84171A2F79813700F09B6A /* DateHelpers.swift in Sources */,
+				FE8417042F79807500F09B6A /* MilestoneOverlay.swift in Sources */,
+				FE8416E12F797EE400F09B6A /* HomeViewModel.swift in Sources */,
+				FE8417172F79812800F09B6A /* SupernovaView.swift in Sources */,
+				FE8416FB2F79801E00F09B6A /* AddHabitSheet.swift in Sources */,
+				FE8417202F79817E00F09B6A /* StreakEngineTests.swift in Sources */,
+				FE8416EE2F797F8600F09B6A /* HabitCardView.swift in Sources */,
+				FE84171D2F79814800F09B6A /* HapticManager.swift in Sources */,
+				FE8416E42F797EF900F09B6A /* HabitDetailViewModel.swift in Sources */,
+				FE8416F82F797FF700F09B6A /* MilestoneBadgeRow.swift in Sources */,
+				FE8416FE2F79803600F09B6A /* ProgressRingView.swift in Sources */,
+				FE8416DE2F797ED000F09B6A /* HabitType.swift in Sources */,
 				FE8416C12F797D8700F09B6A /* ContentView.swift in Sources */,
+				FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */,
+				FE8416F12F797F9C00F09B6A /* HabitDetailView.swift in Sources */,
+				FE8417012F79805000F09B6A /* StreakCounterView.swift in Sources */,
+				FE8417112F7980FB00F09B6A /* FlameAnimationView.swift in Sources */,
+				FE8416EB2F797F7300F09B6A /* HomeView.swift in Sources */,
 				FE8416BF2F797D8700F09B6A /* TallyApp.swift in Sources */,
+				FE8417082F7980AE00F09B6A /* StreakEngine.swift in Sources */,
+				FE8416DB2F797EBE00F09B6A /* HabitLog.swift in Sources */,
+				FE8417142F79811000F09B6A /* LightingEffectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
