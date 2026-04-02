@@ -6,3 +6,13 @@
 //
 
 import Foundation
+
+enum HabitType: String, Codable, CaseIterable {
+    case build
+    case `break`
+}
+
+enum Period: String, Codable, CaseIterable {
+    case daily
+    case weekly
+}
