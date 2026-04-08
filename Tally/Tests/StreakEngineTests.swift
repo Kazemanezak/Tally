@@ -5,6 +5,7 @@
 //  Created by David Castaneda on 3/29/26.
 //
 
+#if canImport(XCTest)
 import XCTest
 @testable import Tally
 
@@ -424,3 +425,4 @@ final class StreakEngineTests: XCTestCase {
         XCTAssertEqual(engine.bestStreak(for: habit, asOf: asOf), 0)
     }
 }
+#endif

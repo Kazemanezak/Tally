@@ -76,8 +76,9 @@ struct HomeView: View {
         VStack(spacing: 16) {
             Spacer()
 
-            Text("🎯")
+            Image(systemName: "target")
                 .font(.system(size: 64))
+                .foregroundStyle(.indigo)
 
             Text("Start your first streak.")
                 .font(.title3)

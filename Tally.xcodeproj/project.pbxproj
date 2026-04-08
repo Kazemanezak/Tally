@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,6 +35,8 @@
 		FE8417202F79817E00F09B6A /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */; };
 		FE8417232F79819200F09B6A /* MilestoneServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */; };
 		FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */; };
+		FFBAF4082F86DCAD0012CA32 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */; };
+		FFBAF40A2F86DCD70012CA32 /* UndoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +70,8 @@
 		FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
 		FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneServiceTests.swift; sourceTree = "<group>"; };
 		FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeatMapView.swift; sourceTree = "<group>"; };
+		FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
+		FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoToastView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +183,7 @@
 			children = (
 				FE8417192F79813700F09B6A /* DateHelpers.swift */,
 				FE84171C2F79814800F09B6A /* HapticManager.swift */,
+				FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -225,6 +230,7 @@
 				FE8416FD2F79803600F09B6A /* ProgressRingView.swift */,
 				FE8417002F79805000F09B6A /* StreakCounterView.swift */,
 				FE8417032F79807500F09B6A /* MilestoneOverlay.swift */,
+				FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -255,8 +261,9 @@
 		FE8416B32F797D8700F09B6A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					FE8416BA2F797D8700F09B6A = {
 						CreatedOnToolsVersion = 12.4;
@@ -308,6 +315,7 @@
 				FE8417172F79812800F09B6A /* SupernovaView.swift in Sources */,
 				FE8416FB2F79801E00F09B6A /* AddHabitSheet.swift in Sources */,
 				FE8417202F79817E00F09B6A /* StreakEngineTests.swift in Sources */,
+				FFBAF40A2F86DCD70012CA32 /* UndoToastView.swift in Sources */,
 				FE8416EE2F797F8600F09B6A /* HabitCardView.swift in Sources */,
 				FE84171D2F79814800F09B6A /* HapticManager.swift in Sources */,
 				FE8416E42F797EF900F09B6A /* HabitDetailViewModel.swift in Sources */,
@@ -315,6 +323,7 @@
 				FE8416FE2F79803600F09B6A /* ProgressRingView.swift in Sources */,
 				FE8416DE2F797ED000F09B6A /* HabitType.swift in Sources */,
 				FE8416C12F797D8700F09B6A /* ContentView.swift in Sources */,
+				FFBAF4082F86DCAD0012CA32 /* Color+Hex.swift in Sources */,
 				FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */,
 				FE8416F12F797F9C00F09B6A /* HabitDetailView.swift in Sources */,
 				FE8417012F79805000F09B6A /* StreakCounterView.swift in Sources */,
@@ -367,6 +376,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -381,11 +391,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -428,6 +439,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -436,10 +448,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
@@ -455,7 +468,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Tally/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tally/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -476,7 +489,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Tally/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tally/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
