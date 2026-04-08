@@ -231,6 +231,12 @@ Tally is fully **offline** for MVP — no network requests are made. All data is
 - [x] `HomeView` — All habit types navigate to detail view; "+" button opens real AddHabitSheet
 - [x] Navigation polish — Build habits now also navigate to detail (previously only Break)
 
+**Member C — Celebration Animations** ✅
+- [x] `ParticleBurstView` (C6) — Canvas-based particle burst with random velocities for Spark milestone (3-day, 1s)
+- [x] `FlameAnimationView` (C7) — TimelineView with layered flame shapes, sway animation, gradient coloring for Fire milestone (7-day, 1.5s)
+- [x] `LightningEffectView` (C8) — Double screen flash + bolt.fill spring scale-in with glow for Lightning milestone (14-day, 0.8s)
+- [x] `SupernovaView` (C9) — Expanding core flash, ring pulse, and 60-particle confetti system for Supernova milestone (30-day, 2.5s)
+
 ### Sprint 2 — Remaining Issues
 
 | Issue # | Task | Assignee | Priority | Milestone |
@@ -239,14 +245,9 @@ Tally is fully **offline** for MVP — no network requests are made. All data is
 | [#7](https://github.com/Kazemanezak/Tally/issues/7) | Write unit tests for `MilestoneService` | @Kazemanezak | High | Phase 2 |
 | [#8](https://github.com/Kazemanezak/Tally/issues/8) | Build `MilestoneOverlay` — celebration overlay view | @Kazemanezak | High | Phase 2 |
 | [#9](https://github.com/Kazemanezak/Tally/issues/9) | Integrate haptics into milestones | @grazuri95 | Medium | Phase 2 |
-| [#10](https://github.com/Kazemanezak/Tally/issues/10) | `ParticleBurstView` — Spark animation | @kylequesadaa | Medium | Phase 2 |
-| [#11](https://github.com/Kazemanezak/Tally/issues/11) | `FlameAnimationView` — Fire animation | @kylequesadaa | Medium | Phase 2 |
-| [#12](https://github.com/Kazemanezak/Tally/issues/12) | `LightningEffectView` — Lightning animation | @kylequesadaa | Medium | Phase 2 |
-| [#13](https://github.com/Kazemanezak/Tally/issues/13) | `SupernovaView` — Supernova animation | @kylequesadaa | Medium | Phase 2 |
 | [#14](https://github.com/Kazemanezak/Tally/issues/14) | Edit habit flow | @Kazemanezak | Medium | Phase 3 |
 | [#15](https://github.com/Kazemanezak/Tally/issues/15) | Archive/unarchive habits | @Kazemanezak | Medium | Phase 3 |
 | [#16](https://github.com/Kazemanezak/Tally/issues/16) | Timezone & multi-day gap edge cases | @Kazemanezak | Medium | Phase 3 |
-| [#17](https://github.com/Kazemanezak/Tally/issues/17) | Navigation polish (all habit types) | @grazuri95 | Medium | Phase 3 |
 | [#18](https://github.com/Kazemanezak/Tally/issues/18) | Dark theme polish | @grazuri95 | Low | Phase 3 |
 | [#19](https://github.com/Kazemanezak/Tally/issues/19) | Legend badge animation (100-day) | @kylequesadaa | Low | Phase 3 |
 | [#20](https://github.com/Kazemanezak/Tally/issues/20) | Seed demo data | @kylequesadaa | Low | Phase 3 |

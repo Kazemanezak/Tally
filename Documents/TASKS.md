@@ -47,19 +47,17 @@ Everyone should be present for this so you're all starting from the same foundat
 
 ---
 
-### Member C — Habit Creation & Detail View ❌ NOT STARTED
+### Member C — Habit Creation & Detail View ✅ COMPLETE
 
 | # | Task | Files | Est. | Status |
 |---|------|-------|------|--------|
-| C1 | Build `AddHabitSheet` — form with name, emoji picker, type toggle, frequency goal, color picker | `Views/Creation/AddHabitSheet.swift` | 3 hr | ❌ Empty stub |
-| C2 | Build `HabitDetailViewModel` — stats calculations, log history | `ViewModels/HabitDetailViewModel.swift` | 1.5 hr | ❌ Empty stub |
-| C3 | Build `HabitDetailView` — current streak, best streak, total completions layout | `Views/Detail/HabitDetailView.swift` | 2 hr | ❌ Placeholder only |
-| C4 | Build `CalendarHeatMapView` — 90-day grid with color intensity per day | `Views/Detail/CalendarHeatMapView.swift` | 2.5 hr | ❌ Empty stub |
-| C5 | Build `MilestoneBadgeRow` — horizontal scroll of earned milestone badges | `Views/Detail/MilestoneBadgeRow.swift` | 1 hr | ❌ Empty stub |
+| C1 | Build `AddHabitSheet` — form with name, SF Symbol picker, custom emoji input, type toggle, frequency goal, color picker | `Views/Creation/AddHabitSheet.swift` | 3 hr | ✅ Done |
+| C2 | Build `HabitDetailViewModel` — stats calculations, log history | `ViewModels/HabitDetailViewModel.swift` | 1.5 hr | ✅ Done |
+| C3 | Build `HabitDetailView` — current streak, best streak, total completions layout | `Views/Detail/HabitDetailView.swift` | 2 hr | ✅ Done |
+| C4 | Build `CalendarHeatMapView` — 90-day grid with color intensity per day | `Views/Detail/CalendarHeatMapView.swift` | 2.5 hr | ✅ Done |
+| C5 | Build `MilestoneBadgeRow` — horizontal scroll of earned milestone badges | `Views/Detail/MilestoneBadgeRow.swift` | 1 hr | ✅ Done |
 
-**Phase 1 total for C: ~10 hours — NOT STARTED**
-
-> ⚠️ **Blocker**: `AddHabitSheet` (C1) is the highest-priority remaining task — users cannot create habits without it. The "+" button on HomeView currently shows a placeholder.
+**Phase 1 total for C: ~10 hours — COMPLETE**
 
 ---
 
@@ -91,16 +89,16 @@ Everyone should be present for this so you're all starting from the same foundat
 
 ---
 
-### Member C — Celebration Animations ❌ NOT STARTED
+### Member C — Celebration Animations ✅ COMPLETE
 
 | # | Task | Files | Est. | Status |
 |---|------|-------|------|--------|
-| C6 | `ParticleBurstView` — Spark milestone (Canvas + random velocity particles) | `Animations/ParticleBurstView.swift` | 2 hr | ❌ Empty stub |
-| C7 | `FlameAnimationView` — Fire milestone (gradient layers / TimelineView) | `Animations/FlameAnimationView.swift` | 2 hr | ❌ Empty stub |
-| C8 | `LightningEffectView` — Lightning milestone (screen flash + bolt icon) | `Animations/LightningEffectView.swift` | 1 hr | ❌ Empty stub |
-| C9 | `SupernovaView` — Supernova milestone (confetti particle system) | `Animations/SupernovaView.swift` | 2 hr | ❌ Empty stub |
+| C6 | `ParticleBurstView` — Spark milestone (Canvas + random velocity particles) | `Animations/ParticleBurstView.swift` | 2 hr | ✅ Done |
+| C7 | `FlameAnimationView` — Fire milestone (gradient layers / TimelineView) | `Animations/FlameAnimationView.swift` | 2 hr | ✅ Done |
+| C8 | `LightningEffectView` — Lightning milestone (screen flash + bolt icon) | `Animations/LightningEffectView.swift` | 1 hr | ✅ Done |
+| C9 | `SupernovaView` — Supernova milestone (confetti particle system) | `Animations/SupernovaView.swift` | 2 hr | ✅ Done |
 
-**Phase 2 total for C: ~7 hours — NOT STARTED**
+**Phase 2 total for C: ~7 hours — COMPLETE**
 
 ---
 
@@ -182,25 +180,24 @@ These are the moments where one person's work depends on another's being done fi
 | Phase 0 — Project Setup | ✅ Complete | 4/4 tasks |
 | Phase 1 — Member A (Data & Logic) | ✅ Complete | 6/6 tasks |
 | Phase 1 — Member B (Home Screen) | ✅ Complete | 6/6 tasks |
-| Phase 1 — Member C (Creation & Detail) | ❌ Not Started | 0/5 tasks |
+| Phase 1 — Member C (Creation & Detail) | ✅ Complete | 5/5 tasks |
 | Phase 2 — Member A (Milestones) | ❌ Not Started | 0/3 tasks |
 | Phase 2 — Member B (Micro-Animations) | ✅ Mostly Complete | 4.5/5 tasks |
-| Phase 2 — Member C (Celebrations) | ❌ Not Started | 0/4 tasks |
+| Phase 2 — Member C (Celebrations) | ✅ Complete | 4/4 tasks |
 | Phase 3 — Member A (Edit/Archive) | ❌ Not Started | 0/3 tasks |
 | Phase 3 — Member B (Polish) | ⚠️ Partial | 1.5/3 tasks |
 | Phase 3 — Member C (Legend/Demo) | ⚠️ Partial | 1/3 tasks |
 | Phase 4 — Testing & Demo | ❌ Not Started | 0/4 tasks |
 
-**Overall: ~19 of 42 tasks complete (~45%)**
+**Overall: ~28 of 42 tasks complete (~67%)**
 
 ### Recommended Priority Order for Remaining Work
 
-1. **C1 — `AddHabitSheet`** (highest priority blocker — users can't create habits)
-2. **C2 — `HabitDetailViewModel`** + **C3 — `HabitDetailView`** (core detail screen)
-3. **C4 — `CalendarHeatMapView`** (90-day heat map for detail screen)
-4. **C5 — `MilestoneBadgeRow`** (milestone badge display)
-5. **A7 — `MilestoneService`** + **A8 — Tests** (milestone detection logic)
-6. **A9 — `MilestoneOverlay`** (celebration overlay shell)
-7. **C6–C9 — Celebration animations** (particle burst, flame, lightning, supernova)
-8. **B13 — Navigation polish** (build habits should also navigate to detail)
-9. **Phase 3 remaining** (edit/archive, dark theme, legend badge, demo data)
+1. **A7 — `MilestoneService`** + **A8 — Tests** (milestone detection logic)
+2. **A9 — `MilestoneOverlay`** (celebration overlay shell — connects to C6–C9 animations)
+3. **B11 — Haptic integration into milestones** (blocked on A7–A9)
+4. **A10 — Edit habit flow** + **A11 — Archive/unarchive**
+5. **A12 — Timezone & multi-day gap edge cases**
+6. **B13 — Navigation polish** + **B14 — Dark theme polish**
+7. **C10 — Legend badge animation** + **C12 — Seed demo data** (waiting on full integration)
+8. **Phase 4 — Testing & Demo** (full walkthrough, device testing, bug fixes, rehearsal)
