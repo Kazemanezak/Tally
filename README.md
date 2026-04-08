@@ -105,28 +105,7 @@ Tally is an iOS habit tracker designed to make logging habits feel entertaining 
 
 ## Wireframes
 
-> 📋 *Hand-sketched wireframes will be added here — photograph and attach your team's sketches.*
-
-```
-┌─────────────────────┐     ┌─────────────────────┐     ┌─────────────────────┐
-│  HOME SCREEN        │     │  ADD HABIT SHEET     │     │  DETAIL VIEW        │
-│─────────────────────│     │─────────────────────│     │─────────────────────│
-│  Tally          [+] │     │  New Habit           │     │  🏋️ Gym             │
-│                     │     │                     │     │                     │
-│ ┌─────────────────┐ │     │  Name: [__________] │     │  Streak: 7 🔥       │
-│ │ 🏋️ Gym      7🔥 │ │     │                     │     │  Best:   12         │
-│ │ [====    ] 2/3  │ │     │  Icon: [😀][🏋️][📚] │     │  Total:  34 logs    │
-│ └─────────────────┘ │     │                     │     │                     │
-│ ┌─────────────────┐ │     │  Type: [Build][Break]│     │  [  Heat Map Grid  ]│
-│ │ 🚭 No Smoking   │ │     │                     │     │  [  90-day view    ]│
-│ │  Days clean: 13 │ │     │  Freq: [Daily][Wkly] │     │                     │
-│ └─────────────────┘ │     │  Goal: [___] times  │     │  🌟 ⚡ 🔥 ✨        │
-│ ┌─────────────────┐ │     │                     │     │  (milestone badges) │
-│ │ 📚 Reading  3✨ │ │     │  Color: [■][■][■]   │     │                     │
-│ └─────────────────┘ │     │                     │     │                     │
-│                     │     │  [      Create      ]│     │                     │
-└─────────────────────┘     └─────────────────────┘     └─────────────────────┘
-```
+![Tally Wireframes](Images/Hand_Drawn_Wireframes.png)
 
 ### [BONUS] Digital Wireframes & Mockups
 
