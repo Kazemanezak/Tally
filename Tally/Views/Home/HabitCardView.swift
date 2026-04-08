@@ -19,12 +19,11 @@ struct HabitCardView: View {
 
     private var streakLabel: String {
         if habit.type == .build {
-            let p = viewModel.completionProgress(for: habit)
-            let period = habit.frequencyPeriod == .daily ? "today" : "this week"
-            return "\(p.current)/\(p.goal) \(period)"
+            let streak = viewModel.streakCount(for: habit)
+            return "\(streak)🔥"
         } else {
             let days = viewModel.streakCount(for: habit)
-            return "\(days) day\(days == 1 ? "" : "s") strong"
+            return "Days Clean: \(days)"
         }
     }
 
@@ -72,8 +71,7 @@ struct HabitCardView: View {
 
     private var cardContent: some View {
         HStack(spacing: 16) {
-            Text(habit.emoji)
-                .font(.system(size: 40))
+            HabitIconView(icon: habit.emoji, size: 32, color: accent)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(habit.name)
@@ -88,7 +86,8 @@ struct HabitCardView: View {
             Spacer()
 
             if habit.type == .build {
-                ProgressRingView(progress: progress, accentColor: accent)
+                let p = viewModel.completionProgress(for: habit)
+                ProgressRingView(progress: progress, accentColor: accent, current: p.current, goal: p.goal)
                     .frame(width: 50, height: 50)
             } else {
                 StreakCounterView(

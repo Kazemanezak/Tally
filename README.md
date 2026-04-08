@@ -39,7 +39,7 @@ Tally is an iOS habit tracker designed to make logging habits feel entertaining 
 - [x] User can view a Break habit's current streak (days of abstinence) and reset it via a confirmation dialog
 - [ ] User can see streaks increment automatically and receive a celebration animation when hitting a milestone (3, 7, 14, 30, 100 days)
 - [x] User can undo a log within 5 seconds via an inline toast
-- [ ] User can open a habit's detail view showing current streak, best streak, total completions, and a 90-day heat map
+- [x] User can open a habit's detail view showing current streak, best streak, total completions, and a 90-day heat map
 - [x] User's data persists locally across app launches using SwiftData
 
 #### Optional Nice-to-Have Stories
@@ -215,15 +215,26 @@ Tally is fully **offline** for MVP — no network requests are made. All data is
 
 ---
 
-### Sprint 2 — Planned Issues (Next Unit)
+### Sprint 2 — Completed Items
+
+**Member C — Habit Creation & Detail View** ✅
+- [x] `AddHabitSheet` (C1) — Full habit creation form with name, SF Symbol icon picker, custom emoji input, Build/Break toggle, Daily/Weekly frequency, goal count, and color picker
+- [x] `HabitDetailViewModel` (C2) — Stats calculations (current streak, best streak, total completions), 90-day heat map data, earned milestones
+- [x] `HabitDetailView` (C3) — Emoji + name header, dashed-border stats card, heat map section, milestone badge row
+- [x] `CalendarHeatMapView` (C4) — GitHub-style 90-day grid with weekday labels, color intensity per completion count, red for break habit slip days
+- [x] `MilestoneBadgeRow` (C5) — Horizontal scroll of 5 milestone badges (Spark, Fire, Lightning, Supernova, Legend) with earned/unearned states
+- [x] `HabitIconView` — Shared component supporting both SF Symbols and custom emoji display
+
+**Wireframe Alignment Updates** ✅
+- [x] `HabitCardView` — Updated to show streak with fire emoji (Build) and "Days Clean: X" (Break) per wireframes
+- [x] `ProgressRingView` — Now shows current/goal fraction inside the ring
+- [x] `HomeView` — All habit types navigate to detail view; "+" button opens real AddHabitSheet
+- [x] Navigation polish — Build habits now also navigate to detail (previously only Break)
+
+### Sprint 2 — Remaining Issues
 
 | Issue # | Task | Assignee | Priority | Milestone |
 |---------|------|----------|----------|-----------|
-| [#1](https://github.com/Kazemanezak/Tally/issues/1) | Build `AddHabitSheet` — habit creation form | @kylequesadaa | High | Phase 1 |
-| [#2](https://github.com/Kazemanezak/Tally/issues/2) | Build `HabitDetailViewModel` — stats calculations | @kylequesadaa | High | Phase 1 |
-| [#3](https://github.com/Kazemanezak/Tally/issues/3) | Build `HabitDetailView` — stats and detail layout | @kylequesadaa | High | Phase 1 |
-| [#4](https://github.com/Kazemanezak/Tally/issues/4) | Build `CalendarHeatMapView` — 90-day activity grid | @kylequesadaa | High | Phase 1 |
-| [#5](https://github.com/Kazemanezak/Tally/issues/5) | Build `MilestoneBadgeRow` — earned milestone badges | @kylequesadaa | Medium | Phase 1 |
 | [#6](https://github.com/Kazemanezak/Tally/issues/6) | Build `MilestoneService` — milestone detection logic | @Kazemanezak | High | Phase 2 |
 | [#7](https://github.com/Kazemanezak/Tally/issues/7) | Write unit tests for `MilestoneService` | @Kazemanezak | High | Phase 2 |
 | [#8](https://github.com/Kazemanezak/Tally/issues/8) | Build `MilestoneOverlay` — celebration overlay view | @Kazemanezak | High | Phase 2 |

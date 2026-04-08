@@ -4,6 +4,8 @@ struct ProgressRingView: View {
     let progress: Double
     let accentColor: Color
     var lineWidth: CGFloat = 6
+    var current: Int = 0
+    var goal: Int = 0
 
     @State private var animatedProgress: Double = 0
 
@@ -26,6 +28,11 @@ struct ProgressRingView: View {
 
             if animatedProgress >= 1.0 {
                 Image(systemName: "checkmark")
+                    .font(.caption2)
+                    .bold()
+                    .foregroundStyle(accentColor)
+            } else if goal > 0 {
+                Text("\(current)/\(goal)")
                     .font(.caption2)
                     .bold()
                     .foregroundStyle(accentColor)

@@ -35,8 +35,8 @@ struct HomeView: View {
         .sheet(isPresented: $showAddSheet) {
             viewModel?.fetchHabits()
         } content: {
-            Text("Add Habit (coming soon)")
-                .presentationDetents([.medium])
+            AddHabitSheet()
+                .presentationDetents([.large])
         }
         .navigationDestination(for: UUID.self) { habitID in
             if let habit = viewModel?.habits.first(where: { $0.id == habitID }) {
@@ -107,16 +107,10 @@ struct HomeView: View {
     private func habitList(viewModel: HomeViewModel) -> some View {
         List {
             ForEach(viewModel.habits, id: \.id) { habit in
-                Group {
-                    if habit.type == .break {
-                        NavigationLink(value: habit.id) {
-                            HabitCardView(habit: habit, viewModel: viewModel)
-                        }
-                        .buttonStyle(.plain)
-                    } else {
-                        HabitCardView(habit: habit, viewModel: viewModel)
-                    }
+                NavigationLink(value: habit.id) {
+                    HabitCardView(habit: habit, viewModel: viewModel)
                 }
+                .buttonStyle(.plain)
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))

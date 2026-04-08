@@ -37,6 +37,7 @@
 		FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */; };
 		FFBAF4082F86DCAD0012CA32 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */; };
 		FFBAF40A2F86DCD70012CA32 /* UndoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */; };
+		FFBAF4182F86F6E50012CA32 /* HabitIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4172F86F6E50012CA32 /* HabitIconView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -72,6 +73,7 @@
 		FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeatMapView.swift; sourceTree = "<group>"; };
 		FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoToastView.swift; sourceTree = "<group>"; };
+		FFBAF4172F86F6E50012CA32 /* HabitIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitIconView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +233,7 @@
 				FE8417002F79805000F09B6A /* StreakCounterView.swift */,
 				FE8417032F79807500F09B6A /* MilestoneOverlay.swift */,
 				FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */,
+				FFBAF4172F86F6E50012CA32 /* HabitIconView.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 			files = (
 				FE8417232F79819200F09B6A /* MilestoneServiceTests.swift in Sources */,
 				FE8416D72F797EAB00F09B6A /* Habit.swift in Sources */,
+				FFBAF4182F86F6E50012CA32 /* HabitIconView.swift in Sources */,
 				FE84170E2F7980E100F09B6A /* ParticleBurstView.swift in Sources */,
 				FE84170B2F7980C000F09B6A /* MilestoneService.swift in Sources */,
 				FE84171A2F79813700F09B6A /* DateHelpers.swift in Sources */,
