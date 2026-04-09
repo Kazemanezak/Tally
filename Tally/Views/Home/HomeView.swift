@@ -8,7 +8,8 @@ struct HomeView: View {
 
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color(.systemGroupedBackground)
+                .ignoresSafeArea()
 
             if let viewModel {
                 VStack(spacing: 0) {
@@ -46,14 +47,12 @@ struct HomeView: View {
         .navigationBarHidden(true)
     }
 
-    // MARK: - Header
-
     private var header: some View {
         HStack {
             Text("Tally")
                 .font(.largeTitle)
                 .bold()
-                .foregroundStyle(.white)
+                .foregroundStyle(.primary)
 
             Spacer()
 
@@ -62,15 +61,13 @@ struct HomeView: View {
             } label: {
                 Image(systemName: "plus.circle.fill")
                     .font(.title2)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
             }
         }
         .padding(.horizontal)
         .padding(.top, 8)
         .padding(.bottom, 12)
     }
-
-    // MARK: - Empty State
 
     private var emptyState: some View {
         VStack(spacing: 16) {
@@ -102,8 +99,6 @@ struct HomeView: View {
         }
     }
 
-    // MARK: - Habit List
-
     private func habitList(viewModel: HomeViewModel) -> some View {
         List {
             ForEach(viewModel.habits, id: \.id) { habit in
@@ -121,5 +116,6 @@ struct HomeView: View {
         }
         .listStyle(.plain)
         .scrollContentBackground(.hidden)
+        .background(Color.clear)
     }
 }

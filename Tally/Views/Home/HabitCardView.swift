@@ -6,10 +6,9 @@ struct HabitCardView: View {
 
     @State private var isTapped = false
     @State private var isPulsing = false
+    @State private var firePulse = false
 
-    private var accent: Color {
-        Color(hex: habit.accentColor)
-    }
+    private var accent: Color { Color(hex: habit.accentColor) }
 
     private var progress: Double {
         let p = viewModel.completionProgress(for: habit)
@@ -17,13 +16,15 @@ struct HabitCardView: View {
         return min(1.0, Double(p.current) / Double(p.goal))
     }
 
+    private var streakCount: Int {
+        viewModel.streakCount(for: habit)
+    }
+
     private var streakLabel: String {
         if habit.type == .build {
-            let streak = viewModel.streakCount(for: habit)
-            return "\(streak)🔥"
+            return "\(streakCount)"
         } else {
-            let days = viewModel.streakCount(for: habit)
-            return "Days Clean: \(days)"
+            return "Days Clean: \(streakCount)"
         }
     }
 
@@ -36,10 +37,22 @@ struct HabitCardView: View {
             if habit.type == .build {
                 cardContent
                     .onTapGesture {
+                        let streakBefore = streakCount
+
                         withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
                             isTapped = true
                         }
+
                         viewModel.logCompletion(for: habit)
+
+                        let streakAfter = viewModel.streakCount(for: habit)
+                        if streakAfter > streakBefore {
+                            firePulse = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
+                                firePulse = false
+                            }
+                        }
+
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                             withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
                                 isTapped = false
@@ -52,10 +65,7 @@ struct HabitCardView: View {
         }
         .onAppear {
             if !isLoggedToday {
-                withAnimation(
-                    .easeInOut(duration: 1.0)
-                    .repeatForever(autoreverses: true)
-                ) {
+                withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
                     isPulsing = true
                 }
             }
@@ -76,36 +86,56 @@ struct HabitCardView: View {
             VStack(alignment: .leading, spacing: 4) {
                 Text(habit.name)
                     .font(.headline)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(.primary)
 
-                Text(streakLabel)
+                if habit.type == .build {
+                    HStack(spacing: 4) {
+                        Text("🔥")
+                            .scaleEffect(firePulse ? 1.18 : 1.0)
+
+                        Text("\(streakCount)")
+                    }
                     .font(.subheadline)
                     .foregroundStyle(.secondary)
+                    .animation(.spring(response: 0.25, dampingFraction: 0.45), value: firePulse)
+                } else {
+                    Text(streakLabel)
+                        .font(.subheadline)
+                        .foregroundStyle(.secondary)
+                }
             }
 
             Spacer()
 
             if habit.type == .build {
                 let p = viewModel.completionProgress(for: habit)
-                ProgressRingView(progress: progress, accentColor: accent, current: p.current, goal: p.goal)
-                    .frame(width: 50, height: 50)
+                ProgressRingView(
+                    progress: progress,
+                    accentColor: accent,
+                    current: p.current,
+                    goal: p.goal
+                )
+                .frame(width: 50, height: 50)
             } else {
                 StreakCounterView(
-                    dayCount: viewModel.streakCount(for: habit),
+                    dayCount: streakCount,
                     accentColor: accent,
-                    onSlip: { viewModel.recordSlip(for: habit) }
+                    onSlip: {
+                        viewModel.recordSlip(for: habit)
+                    }
                 )
             }
         }
         .padding()
         .background(
             RoundedRectangle(cornerRadius: 16)
-                .fill(accent.opacity(0.15))
+                .fill(Color(.secondarySystemBackground))
         )
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(accent.opacity(0.3), lineWidth: 1)
+                .stroke(accent.opacity(0.35), lineWidth: 1)
         )
+        .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 2)
         .scaleEffect(isTapped ? 0.95 : 1.0)
         .opacity(isLoggedToday ? 1.0 : (isPulsing ? 0.7 : 1.0))
     }

@@ -50,7 +50,10 @@ final class HomeViewModel {
         try? modelContext.save()
 
         let streakAfter = streakEngine.currentStreak(for: habit)
-        if streakAfter > streakBefore {
+
+        if let milestone = MilestoneService.reachedMilestone(from: streakBefore, to: streakAfter) {
+            MilestoneService.playHaptic(for: milestone)
+        } else if streakAfter > streakBefore {
             HapticManager.medium()
         } else {
             HapticManager.light()
