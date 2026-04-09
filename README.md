@@ -37,7 +37,7 @@ Tally is an iOS habit tracker designed to make logging habits feel entertaining 
 - [x] User can view all active habits on a home screen as a scrollable list of cards
 - [x] User can tap a Build habit card to log one completion, with a progress ring showing progress toward the goal
 - [x] User can view a Break habit's current streak (days of abstinence) and reset it via a confirmation dialog
-- [x] User can see streaks increment automatically and receive a celebration animation when hitting a milestone (3, 7, 14, 30, 100 days)
+- [ ] User can see streaks increment automatically and receive a celebration animation when hitting a milestone (3, 7, 14, 30, 100 days)
 - [x] User can undo a log within 5 seconds via an inline toast
 - [x] User can open a habit's detail view showing current streak, best streak, total completions, and a 90-day heat map
 - [x] User's data persists locally across app launches using SwiftData
@@ -45,7 +45,7 @@ Tally is an iOS habit tracker designed to make logging habits feel entertaining 
 #### Optional Nice-to-Have Stories
 
 - [ ] User can edit or archive an existing habit
-- [ ] User can reorder habits via drag-and-drop on the main screen
+- [x] User can reorder habits via drag-and-drop on the main screen
 - [ ] User can receive push notifications as daily reminders
 - [ ] User can share their streak milestones to social media
 - [ ] User can view a widget on their home screen showing today's habits
@@ -176,43 +176,85 @@ Tally is fully **offline** for MVP — no network requests are made. All data is
 
 ### Sprint 1 — Completed Items
 
+**Member A — Data Layer & Business Logic** ✅
+- [x] `Habit` and `HabitLog` SwiftData models with all properties (A1, A2)
+- [x] `HabitType` and `Period` enums — `.build`/`.break`, `.daily`/`.weekly` (A1)
+- [x] `StreakEngine` — current streak, best streak, completions in period, goal-met check for Build/daily, Build/weekly, and Break habits (A3, A4)
+- [x] Unit tests for `StreakEngine` — 17 test cases covering daily build, weekly build, break, gaps, edge cases (A5)
+- [x] `DateHelpers` utility — start of day, start of week, date ranges, day/week comparisons (A6)
+
+**Member B — Home Screen & Daily Logging** ✅
+- [x] `HomeViewModel` — fetch habits, handle logging, undo with 5s timer, drag-to-reorder (B1)
+- [x] `HomeView` — scrollable list of habit cards with empty state onboarding message (B2)
+- [x] `HabitCardView` — emoji, name, streak count, tap-to-log with spring bounce animation and idle pulse (B3, B7, B9)
+- [x] `ProgressRingView` — animated circular arc with trim + easeOut fill animation and glow at 100% (B4, B8)
+- [x] `StreakCounterView` — prominent day counter + "I slipped" button with confirmation dialog (B5)
+- [x] `UndoToastView` — 5-second undo window with slide-up toast (B6)
+- [x] `HapticManager` — light, medium, heavy, doubleTap, and success haptic patterns (B10)
+- [x] `Color+Hex` — hex color string to SwiftUI Color extension
+
+**Project Setup** ✅
 - [x] Xcode project created (iOS 17+, SwiftUI lifecycle)
 - [x] Folder structure initialized per TRD spec
 - [x] Git repository set up with feature branch strategy
 - [x] SwiftData `ModelContainer` added to `TallyApp.swift`
-- [x] `Habit` and `HabitLog` SwiftData models implemented
-- [x] `HabitType` and `Period` enums defined
-- [x] `StreakEngine` — current streak and best streak calculations (Build/daily)
-- [x] `HomeViewModel` — fetch habits, handle logging
-- [x] `HomeView` — scrollable list with empty state onboarding message
-- [x] `HabitCardView` — emoji, name, streak count, tap-to-log
-- [x] `AddHabitSheet` — name, emoji picker, Build/Break toggle, frequency goal
+- [x] App icon designed and added (target/crosshair in indigo on dark background)
 
 ### Sprint 1 — Demo GIFs/Videos
 
-> 📹 *Video walkthroughs and GIFs will be added here after recording build progress.*
+> 📹 *Video walkthroughs and GIFs to be recorded and added below.*
 
 | Feature | Preview |
 |---------|---------|
-| Creating a habit | *(GIF to be added)* |
-| Logging a Build habit | *(GIF to be added)* |
-| Viewing a streak | *(GIF to be added)* |
+| Home screen with habit cards | *(GIF to be added)* |
+| Logging a Build habit (tap + progress ring) | *(GIF to be added)* |
+| Break habit streak + "I slipped" reset | *(GIF to be added)* |
+| Undo toast in action | *(GIF to be added)* |
+| Drag-to-reorder habits | *(GIF to be added)* |
+| Empty state onboarding | *(GIF to be added)* |
 
 ---
 
-### Sprint 2 — Planned Issues (Next Unit)
+### Sprint 2 — Completed Items
 
-| Issue | Assignee | Priority |
-|-------|----------|---------|
-| `StreakEngine` — Break habit streak logic (days since last slip) | Member A | High |
-| `StreakEngine` — multi-day gap handling on app launch | Member A | High |
-| Unit tests for `StreakEngine` | Member A | High |
-| `ProgressRingView` — animated circular arc for Build habits | Member B | High |
-| `StreakCounterView` — day counter + "I slipped" confirmation | Member B | High |
-| Undo toast (5-second log undo) | Member B | Medium |
-| `HabitDetailView` + `HabitDetailViewModel` — stats layout | Member C | High |
-| `CalendarHeatMapView` — 90-day grid with color intensity | Member C | High |
-| `MilestoneBadgeRow` — horizontal earned badge display | Member C | Medium |
+**Member C — Habit Creation & Detail View** ✅
+- [x] `AddHabitSheet` (C1) — Full habit creation form with name, SF Symbol icon picker, custom emoji input, Build/Break toggle, Daily/Weekly frequency, goal count, and color picker
+- [x] `HabitDetailViewModel` (C2) — Stats calculations (current streak, best streak, total completions), 90-day heat map data, earned milestones
+- [x] `HabitDetailView` (C3) — Emoji + name header, dashed-border stats card, heat map section, milestone badge row
+- [x] `CalendarHeatMapView` (C4) — GitHub-style 90-day grid with weekday labels, color intensity per completion count, red for break habit slip days
+- [x] `MilestoneBadgeRow` (C5) — Horizontal scroll of 5 milestone badges (Spark, Fire, Lightning, Supernova, Legend) with earned/unearned states
+- [x] `HabitIconView` — Shared component supporting both SF Symbols and custom emoji display
+
+**Wireframe Alignment Updates** ✅
+- [x] `HabitCardView` — Updated to show streak with fire emoji (Build) and "Days Clean: X" (Break) per wireframes
+- [x] `ProgressRingView` — Now shows current/goal fraction inside the ring
+- [x] `HomeView` — All habit types navigate to detail view; "+" button opens real AddHabitSheet
+- [x] Navigation polish — Build habits now also navigate to detail (previously only Break)
+
+**Member C — Celebration Animations** ✅
+- [x] `ParticleBurstView` (C6) — Canvas-based particle burst with random velocities for Spark milestone (3-day, 1s)
+- [x] `FlameAnimationView` (C7) — TimelineView with layered flame shapes, sway animation, gradient coloring for Fire milestone (7-day, 1.5s)
+- [x] `LightningEffectView` (C8) — Double screen flash + bolt.fill spring scale-in with glow for Lightning milestone (14-day, 0.8s)
+- [x] `SupernovaView` (C9) — Expanding core flash, ring pulse, and 60-particle confetti system for Supernova milestone (30-day, 2.5s)
+
+### Sprint 2 — Remaining Issues
+
+| Issue # | Task | Assignee | Priority | Milestone |
+|---------|------|----------|----------|-----------|
+| [#6](https://github.com/Kazemanezak/Tally/issues/6) | Build `MilestoneService` — milestone detection logic | @Kazemanezak | High | Phase 2 |
+| [#7](https://github.com/Kazemanezak/Tally/issues/7) | Write unit tests for `MilestoneService` | @Kazemanezak | High | Phase 2 |
+| [#8](https://github.com/Kazemanezak/Tally/issues/8) | Build `MilestoneOverlay` — celebration overlay view | @Kazemanezak | High | Phase 2 |
+| [#9](https://github.com/Kazemanezak/Tally/issues/9) | Integrate haptics into milestones | @grazuri95 | Medium | Phase 2 |
+| [#14](https://github.com/Kazemanezak/Tally/issues/14) | Edit habit flow | @Kazemanezak | Medium | Phase 3 |
+| [#15](https://github.com/Kazemanezak/Tally/issues/15) | Archive/unarchive habits | @Kazemanezak | Medium | Phase 3 |
+| [#16](https://github.com/Kazemanezak/Tally/issues/16) | Timezone & multi-day gap edge cases | @Kazemanezak | Medium | Phase 3 |
+| [#18](https://github.com/Kazemanezak/Tally/issues/18) | Dark theme polish | @grazuri95 | Low | Phase 3 |
+| [#19](https://github.com/Kazemanezak/Tally/issues/19) | Legend badge animation (100-day) | @kylequesadaa | Low | Phase 3 |
+| [#20](https://github.com/Kazemanezak/Tally/issues/20) | Seed demo data | @kylequesadaa | Low | Phase 3 |
+| [#21](https://github.com/Kazemanezak/Tally/issues/21) | Full user flow walkthrough | Team | High | Phase 4 |
+| [#22](https://github.com/Kazemanezak/Tally/issues/22) | Physical device testing | Team | High | Phase 4 |
+| [#23](https://github.com/Kazemanezak/Tally/issues/23) | Fix integration bugs | Team | High | Phase 4 |
+| [#24](https://github.com/Kazemanezak/Tally/issues/24) | Rehearse demo | Team | Medium | Phase 4 |
 
 ---
 
@@ -223,10 +265,10 @@ Tally is fully **offline** for MVP — no network requests are made. All data is
 | Deliverable | Status |
 |-------------|--------|
 | GitHub Project Board created | ✅ |
-| GitHub Milestones created | ✅ |
-| GitHub Issues created from user features | ✅ |
-| Issues assigned to specific team members | ✅ |
+| GitHub Milestones created (Phase 1–4) | ✅ |
+| GitHub Issues created from user features (24 issues) | ✅ |
+| Issues added to project and assigned to team members | ✅ |
 | Sprint 1 issues updated in project board | ✅ |
 | Sprint 2 issues created, assigned & added to board | ✅ |
 | Completed user stories checked off in README | ✅ |
-| Build progress videos/GIFs added to README | ⏳ *(in progress)* |
+| Build progress videos/GIFs added to README | ⏳ *(to be recorded)* |
