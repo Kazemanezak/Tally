@@ -1,13 +1,10 @@
-//
-//  StreakEngine.swift
-//  Tally
-//
-//  Created by David Castaneda on 3/29/26.
-//
-
 import Foundation
 
 struct StreakEngine {
+
+    private var calendar: Calendar {
+        DateHelpers.calendar
+    }
 
     func currentStreak(for habit: Habit, asOf date: Date = Date()) -> Int {
         switch habit.type {
@@ -28,7 +25,7 @@ struct StreakEngine {
         case .build:
             switch habit.frequencyPeriod {
             case .daily:
-                return bestDailyBuildStreak(for: habit)
+                return bestDailyBuildStreak(for: habit, asOf: date)
             case .weekly:
                 return bestWeeklyBuildStreak(for: habit, asOf: date)
             }
@@ -55,13 +52,11 @@ struct StreakEngine {
 
     func isGoalMetToday(for habit: Habit, asOf date: Date = Date()) -> Bool {
         guard habit.type == .build else { return false }
-
-        let completions = completionsInCurrentPeriod(for: habit, asOf: date)
-        return completions >= habit.frequencyGoal
+        return completionsInCurrentPeriod(for: habit, asOf: date) >= habit.frequencyGoal
     }
 }
 
-// MARK: - Private Helpers
+// MARK: - Private helpers
 private extension StreakEngine {
 
     func normalizedBuildLogs(for habit: Habit) -> [Date: Int] {
@@ -75,30 +70,30 @@ private extension StreakEngine {
         return result
     }
 
-    func slipDays(for habit: Habit) -> [Date] {
+    func normalizedSlipDays(for habit: Habit) -> [Date] {
         habit.logs
-            .filter { $0.didSlip }
+            .filter(\.didSlip)
             .map { DateHelpers.startOfDay($0.date) }
             .sorted()
     }
 
-    // MARK: Build Daily
+    // MARK: - Build / Daily
 
     func currentDailyBuildStreak(for habit: Habit, asOf date: Date) -> Int {
         let logsByDay = normalizedBuildLogs(for: habit)
-        let today = DateHelpers.startOfDay(date)
+        let asOfDay = DateHelpers.startOfDay(date)
         let createdDay = DateHelpers.startOfDay(habit.createdAt)
 
+        guard asOfDay >= createdDay else { return 0 }
+
         var streak = 0
-        var cursor = today
+        var cursor = asOfDay
 
         while cursor >= createdDay {
             let completions = logsByDay[cursor] ?? 0
-            if completions >= habit.frequencyGoal {
-                streak += 1
-            } else {
-                break
-            }
+            guard completions >= habit.frequencyGoal else { break }
+
+            streak += 1
 
             guard let previousDay = DateHelpers.dayBefore(cursor) else { break }
             cursor = previousDay
@@ -107,12 +102,18 @@ private extension StreakEngine {
         return streak
     }
 
-    func bestDailyBuildStreak(for habit: Habit) -> Int {
+    func bestDailyBuildStreak(for habit: Habit, asOf date: Date) -> Int {
         let logsByDay = normalizedBuildLogs(for: habit)
         let createdDay = DateHelpers.startOfDay(habit.createdAt)
-        let lastLogDay = logsByDay.keys.sorted().last ?? createdDay
+        let endDay = max(
+            createdDay,
+            min(
+                DateHelpers.startOfDay(date),
+                logsByDay.keys.max() ?? createdDay
+            )
+        )
 
-        let allDays = DateHelpers.datesInRange(from: createdDay, to: lastLogDay)
+        let allDays = DateHelpers.datesInRange(from: createdDay, to: endDay)
 
         var best = 0
         var current = 0
@@ -130,27 +131,25 @@ private extension StreakEngine {
         return best
     }
 
-    // MARK: Build Weekly
+    // MARK: - Build / Weekly
 
     func currentWeeklyBuildStreak(for habit: Habit, asOf date: Date) -> Int {
         let weekTotals = weeklyCompletionTotals(for: habit)
         let currentWeek = DateHelpers.startOfWeek(for: date)
         let createdWeek = DateHelpers.startOfWeek(for: habit.createdAt)
 
+        guard currentWeek >= createdWeek else { return 0 }
+
         var streak = 0
         var cursor = currentWeek
 
         while cursor >= createdWeek {
             let completions = weekTotals[cursor] ?? 0
-            if completions >= habit.frequencyGoal {
-                streak += 1
-            } else {
-                break
-            }
+            guard completions >= habit.frequencyGoal else { break }
 
-            guard let previousWeek = Calendar.current.date(byAdding: .weekOfYear, value: -1, to: cursor) else {
-                break
-            }
+            streak += 1
+
+            guard let previousWeek = calendar.date(byAdding: .weekOfYear, value: -1, to: cursor) else { break }
             cursor = DateHelpers.startOfWeek(for: previousWeek)
         }
 
@@ -160,7 +159,13 @@ private extension StreakEngine {
     func bestWeeklyBuildStreak(for habit: Habit, asOf date: Date) -> Int {
         let weekTotals = weeklyCompletionTotals(for: habit)
         let createdWeek = DateHelpers.startOfWeek(for: habit.createdAt)
-        let endWeek = maxWeekDate(in: weekTotals.keys) ?? createdWeek
+        let endWeek = max(
+            createdWeek,
+            min(
+                DateHelpers.startOfWeek(for: date),
+                weekTotals.keys.max() ?? createdWeek
+            )
+        )
 
         let allWeeks = weekSequence(from: createdWeek, to: endWeek)
 
@@ -201,23 +206,21 @@ private extension StreakEngine {
 
         while cursor <= endWeek {
             weeks.append(cursor)
-            guard let next = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: cursor) else { break }
+            guard let next = calendar.date(byAdding: .weekOfYear, value: 1, to: cursor) else { break }
             cursor = DateHelpers.startOfWeek(for: next)
         }
 
         return weeks
     }
 
-    func maxWeekDate(in dates: Dictionary<Date, Int>.Keys) -> Date? {
-        dates.sorted().last
-    }
-
-    // MARK: Break
+    // MARK: - Break
 
     func currentBreakStreak(for habit: Habit, asOf date: Date) -> Int {
         let today = DateHelpers.startOfDay(date)
         let createdDay = DateHelpers.startOfDay(habit.createdAt)
-        let slips = slipDays(for: habit)
+        let slips = normalizedSlipDays(for: habit)
+
+        guard today >= createdDay else { return 0 }
 
         guard let lastSlip = slips.last else {
             return max(0, DateHelpers.daysBetween(createdDay, today))
@@ -229,7 +232,9 @@ private extension StreakEngine {
     func bestBreakStreak(for habit: Habit, asOf date: Date) -> Int {
         let createdDay = DateHelpers.startOfDay(habit.createdAt)
         let today = DateHelpers.startOfDay(date)
-        let slips = slipDays(for: habit)
+        let slips = normalizedSlipDays(for: habit)
+
+        guard today >= createdDay else { return 0 }
 
         guard !slips.isEmpty else {
             return max(0, DateHelpers.daysBetween(createdDay, today))
@@ -245,8 +250,7 @@ private extension StreakEngine {
         }
 
         if let lastSlip = slips.last {
-            let currentRun = max(0, DateHelpers.daysBetween(lastSlip, today))
-            best = max(best, currentRun)
+            best = max(best, max(0, DateHelpers.daysBetween(lastSlip, today)))
         }
 
         return best

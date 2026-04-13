@@ -5,6 +5,8 @@ struct AddHabitSheet: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
 
+    let habitToEdit: Habit?
+
     @State private var name = ""
     @State private var selectedIcon = "dumbbell.fill"
     @State private var habitType: HabitType = .build
@@ -30,8 +32,20 @@ struct AddHabitSheet: View {
         ("Red", "#EF4444"),
     ]
 
-    private var canCreate: Bool {
+    private var canSave: Bool {
         !name.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
+    private var isEditMode: Bool {
+        habitToEdit != nil
+    }
+
+    private var sheetTitle: String {
+        isEditMode ? "Edit Habit" : "New Habit"
+    }
+
+    private var actionTitle: String {
+        isEditMode ? "Save" : "Create"
     }
 
     var body: some View {
@@ -51,7 +65,7 @@ struct AddHabitSheet: View {
                     .padding()
                 }
             }
-            .navigationTitle("New Habit")
+            .navigationTitle(sheetTitle)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
@@ -59,12 +73,15 @@ struct AddHabitSheet: View {
                         .foregroundStyle(.secondary)
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button("Create") { createHabit() }
+                    Button(actionTitle) { saveHabit() }
                         .bold()
-                        .disabled(!canCreate)
+                        .disabled(!canSave)
                 }
             }
             .toolbarColorScheme(.dark, for: .navigationBar)
+            .onAppear {
+                populateFieldsIfNeeded()
+            }
         }
     }
 
@@ -99,7 +116,6 @@ struct AddHabitSheet: View {
 
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 12) {
-                    // SF Symbol options
                     ForEach(iconOptions, id: \.self) { icon in
                         Image(systemName: icon)
                             .font(.system(size: 24))
@@ -119,7 +135,6 @@ struct AddHabitSheet: View {
                             }
                     }
 
-                    // Custom emoji button
                     ZStack {
                         if isCustomEmojiSelected {
                             Text(customEmoji)
@@ -152,7 +167,6 @@ struct AddHabitSheet: View {
                 }
             }
 
-            // Emoji text input field
             if showEmojiInput {
                 HStack(spacing: 12) {
                     TextField("Type an emoji", text: $customEmoji)
@@ -166,7 +180,6 @@ struct AddHabitSheet: View {
                         )
                         .foregroundStyle(.white)
                         .onChange(of: customEmoji) { _, newValue in
-                            // Keep only the first emoji character
                             if let first = newValue.first {
                                 customEmoji = String(first)
                                 selectedIcon = customEmoji
@@ -260,32 +273,63 @@ struct AddHabitSheet: View {
         }
     }
 
+    // MARK: - Prefill
+
+    private func populateFieldsIfNeeded() {
+        guard let habit = habitToEdit else { return }
+
+        name = habit.name
+        habitType = habit.type
+        frequencyPeriod = habit.frequencyPeriod
+        frequencyGoal = habit.frequencyGoal
+        accentColor = habit.accentColor
+
+        if iconOptions.contains(habit.emoji) {
+            selectedIcon = habit.emoji
+            customEmoji = ""
+            showEmojiInput = false
+        } else {
+            selectedIcon = habit.emoji
+            customEmoji = habit.emoji
+            showEmojiInput = true
+        }
+    }
+
     // MARK: - Actions
 
-    private func createHabit() {
+    private func saveHabit() {
         let trimmedName = name.trimmingCharacters(in: .whitespaces)
         guard !trimmedName.isEmpty else { return }
 
-        // Determine next sort order
-        let descriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.sortOrder, order: .reverse)])
-        let existingHabits = (try? modelContext.fetch(descriptor)) ?? []
-        let nextOrder = (existingHabits.first?.sortOrder ?? -1) + 1
-
         let goal = habitType == .build ? max(1, frequencyGoal) : 1
+        let finalPeriod: Period = habitType == .build ? frequencyPeriod : .daily
 
-        let habit = Habit(
-            name: trimmedName,
-            emoji: selectedIcon,
-            type: habitType,
-            frequencyGoal: goal,
-            frequencyPeriod: habitType == .build ? frequencyPeriod : .daily,
-            accentColor: accentColor,
-            sortOrder: nextOrder
-        )
+        if let habit = habitToEdit {
+            habit.name = trimmedName
+            habit.emoji = selectedIcon
+            habit.type = habitType
+            habit.frequencyGoal = goal
+            habit.frequencyPeriod = finalPeriod
+            habit.accentColor = accentColor
+        } else {
+            let descriptor = FetchDescriptor<Habit>(sortBy: [SortDescriptor(\.sortOrder, order: .reverse)])
+            let existingHabits = (try? modelContext.fetch(descriptor)) ?? []
+            let nextOrder = (existingHabits.first?.sortOrder ?? -1) + 1
 
-        modelContext.insert(habit)
+            let habit = Habit(
+                name: trimmedName,
+                emoji: selectedIcon,
+                type: habitType,
+                frequencyGoal: goal,
+                frequencyPeriod: finalPeriod,
+                accentColor: accentColor,
+                sortOrder: nextOrder
+            )
+
+            modelContext.insert(habit)
+        }
+
         try? modelContext.save()
-
         HapticManager.medium()
         dismiss()
     }

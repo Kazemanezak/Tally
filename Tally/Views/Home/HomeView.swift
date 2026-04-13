@@ -5,6 +5,7 @@ struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var viewModel: HomeViewModel?
     @State private var showAddSheet = false
+    @State private var showArchivedSection = false
 
     var body: some View {
         ZStack {
@@ -13,9 +14,9 @@ struct HomeView: View {
 
             if let viewModel {
                 VStack(spacing: 0) {
-                    header
+                    header(viewModel: viewModel)
 
-                    if viewModel.habits.isEmpty {
+                    if viewModel.habits.isEmpty && viewModel.archivedHabits.isEmpty {
                         emptyState
                     } else {
                         habitList(viewModel: viewModel)
@@ -25,6 +26,20 @@ struct HomeView: View {
                 if viewModel.showUndoToast {
                     UndoToastView(viewModel: viewModel)
                 }
+
+                MilestoneOverlay(
+                    milestone: viewModel.milestoneToShow,
+                    isPresented: Binding(
+                        get: { viewModel.showMilestoneOverlay },
+                        set: { newValue in
+                            if newValue {
+                                viewModel.showMilestoneOverlay = true
+                            } else {
+                                viewModel.dismissMilestoneOverlay()
+                            }
+                        }
+                    )
+                )
             }
         }
         .animation(.spring(response: 0.3), value: viewModel?.showUndoToast)
@@ -35,8 +50,9 @@ struct HomeView: View {
         }
         .sheet(isPresented: $showAddSheet) {
             viewModel?.fetchHabits()
+            viewModel?.fetchArchivedHabits()
         } content: {
-            AddHabitSheet()
+            AddHabitSheet(habitToEdit: nil)
                 .presentationDetents([.large])
         }
         .navigationDestination(for: UUID.self) { habitID in
@@ -47,7 +63,7 @@ struct HomeView: View {
         .navigationBarHidden(true)
     }
 
-    private var header: some View {
+    private func header(viewModel: HomeViewModel) -> some View {
         HStack {
             Text("Tally")
                 .font(.largeTitle)
@@ -55,6 +71,18 @@ struct HomeView: View {
                 .foregroundStyle(.primary)
 
             Spacer()
+
+            if !viewModel.archivedHabits.isEmpty {
+                Button {
+                    withAnimation {
+                        showArchivedSection.toggle()
+                    }
+                } label: {
+                    Image(systemName: showArchivedSection ? "archivebox.fill" : "archivebox")
+                        .font(.title3)
+                        .foregroundStyle(.primary)
+                }
+            }
 
             Button {
                 showAddSheet = true
@@ -106,12 +134,51 @@ struct HomeView: View {
                     HabitCardView(habit: habit, viewModel: viewModel)
                 }
                 .buttonStyle(.plain)
+                .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                    Button(role: .destructive) {
+                        viewModel.archiveHabit(habit)
+                    } label: {
+                        Label("Archive", systemImage: "archivebox.fill")
+                    }
+                }
                 .listRowBackground(Color.clear)
                 .listRowSeparator(.hidden)
                 .listRowInsets(EdgeInsets(top: 6, leading: 16, bottom: 6, trailing: 16))
             }
             .onMove { source, destination in
                 viewModel.moveHabit(from: source, to: destination)
+            }
+
+            if showArchivedSection && !viewModel.archivedHabits.isEmpty {
+                Section("Archived Habits") {
+                    ForEach(viewModel.archivedHabits, id: \.id) { habit in
+                        HStack(spacing: 12) {
+                            Text(habit.emoji)
+                                .font(.title3)
+
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(habit.name)
+                                    .foregroundStyle(.primary)
+
+                                Text("Archived")
+                                    .font(.caption)
+                                    .foregroundStyle(.secondary)
+                            }
+
+                            Spacer()
+                        }
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button {
+                                viewModel.unarchiveHabit(habit)
+                            } label: {
+                                Label("Restore", systemImage: "arrow.uturn.backward.circle.fill")
+                            }
+                            .tint(.blue)
+                        }
+                    }
+                    .listRowBackground(Color.clear)
+                    .listRowSeparator(.hidden)
+                }
             }
         }
         .listStyle(.plain)

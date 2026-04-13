@@ -6,17 +6,24 @@ import SwiftData
 final class HomeViewModel {
 
     var habits: [Habit] = []
+    var archivedHabits: [Habit] = []
+
     var pendingUndoLog: HabitLog?
     var undoHabit: Habit?
     var showUndoToast: Bool = false
 
+    var milestoneToShow: MilestoneDefinition?
+    var showMilestoneOverlay: Bool = false
+
     private let modelContext: ModelContext
     private let streakEngine = StreakEngine()
+    private let milestoneService = MilestoneService()
     private var undoTask: Task<Void, Never>?
 
     init(modelContext: ModelContext) {
         self.modelContext = modelContext
         fetchHabits()
+        fetchArchivedHabits()
     }
 
     // MARK: - Data
@@ -29,13 +36,37 @@ final class HomeViewModel {
         habits = (try? modelContext.fetch(descriptor)) ?? []
     }
 
+    func fetchArchivedHabits() {
+        let descriptor = FetchDescriptor<Habit>(
+            predicate: #Predicate { $0.isArchived },
+            sortBy: [SortDescriptor(\.sortOrder)]
+        )
+        archivedHabits = (try? modelContext.fetch(descriptor)) ?? []
+    }
+
+    // MARK: - Archive
+
+    func archiveHabit(_ habit: Habit) {
+        habit.isArchived = true
+        try? modelContext.save()
+        fetchHabits()
+        fetchArchivedHabits()
+    }
+
+    func unarchiveHabit(_ habit: Habit) {
+        habit.isArchived = false
+        try? modelContext.save()
+        fetchHabits()
+        fetchArchivedHabits()
+    }
+
     // MARK: - Logging
 
     func logCompletion(for habit: Habit) {
         let today = DateHelpers.startOfDay(Date())
         let existingLog = habit.logs.first { DateHelpers.isSameDay($0.date, today) && !$0.didSlip }
 
-        let streakBefore = streakEngine.currentStreak(for: habit)
+        let previousBestStreak = streakEngine.bestStreak(for: habit)
 
         if let log = existingLog {
             log.completionCount += 1
@@ -51,9 +82,10 @@ final class HomeViewModel {
 
         let streakAfter = streakEngine.currentStreak(for: habit)
 
-        if let milestone = MilestoneService.reachedMilestone(from: streakBefore, to: streakAfter) {
-            MilestoneService.playHaptic(for: milestone)
-        } else if streakAfter > streakBefore {
+        if let milestone = milestoneService.checkMilestone(previousBestStreak: previousBestStreak, newStreak: streakAfter) {
+            milestoneToShow = milestone
+            showMilestoneOverlay = true
+        } else if streakAfter > previousBestStreak {
             HapticManager.medium()
         } else {
             HapticManager.light()
@@ -88,6 +120,12 @@ final class HomeViewModel {
         undoTask?.cancel()
         try? modelContext.save()
         fetchHabits()
+        fetchArchivedHabits()
+    }
+
+    func dismissMilestoneOverlay() {
+        showMilestoneOverlay = false
+        milestoneToShow = nil
     }
 
     // MARK: - Reorder

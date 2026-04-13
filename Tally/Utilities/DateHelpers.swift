@@ -1,16 +1,9 @@
-//
-//  DateHelpers.swift
-//  Tally
-//
-//  Created by David Castaneda on 3/29/26.
-//
-
 import Foundation
 
 enum DateHelpers {
-    static let calendar: Calendar = {
+    static var calendar: Calendar = {
         var calendar = Calendar.current
-        calendar.timeZone = .current
+        calendar.timeZone = .autoupdatingCurrent
         return calendar
     }()
 
@@ -19,12 +12,13 @@ enum DateHelpers {
     }
 
     static func isSameDay(_ lhs: Date, _ rhs: Date) -> Bool {
-        calendar.isDate(lhs, inSameDayAs: rhs)
+        calendar.isDate(startOfDay(lhs), inSameDayAs: startOfDay(rhs))
     }
 
     static func startOfWeek(for date: Date) -> Date {
-        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: date)
-        return calendar.date(from: components) ?? startOfDay(date)
+        let normalizedDate = startOfDay(date)
+        let components = calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: normalizedDate)
+        return calendar.date(from: components) ?? normalizedDate
     }
 
     static func isSameWeek(_ lhs: Date, _ rhs: Date) -> Bool {
@@ -43,12 +37,6 @@ enum DateHelpers {
         let startDay = startOfDay(start)
         let endDay = startOfDay(end)
         return calendar.dateComponents([.day], from: startDay, to: endDay).day ?? 0
-    }
-
-    static func weeksBetween(_ start: Date, _ end: Date) -> Int {
-        let startWeek = startOfWeek(for: start)
-        let endWeek = startOfWeek(for: end)
-        return calendar.dateComponents([.weekOfYear], from: startWeek, to: endWeek).weekOfYear ?? 0
     }
 
     static func datesInRange(from start: Date, to end: Date) -> [Date] {
