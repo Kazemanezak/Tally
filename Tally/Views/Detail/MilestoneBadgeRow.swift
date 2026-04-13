@@ -3,38 +3,74 @@ import SwiftUI
 struct MilestoneBadgeRow: View {
     let earned: [MilestoneDefinition]
 
+    private func isEarned(_ milestone: MilestoneDefinition) -> Bool {
+        earned.contains { $0.threshold == milestone.threshold }
+    }
+
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) {
+        VStack(alignment: .leading, spacing: 10) {
             Text("Milestones")
-                .font(.subheadline)
-                .foregroundStyle(.secondary)
+                .font(.headline)
+                .foregroundStyle(.white)
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 16) {
-                    ForEach(MilestoneDefinition.all) { milestone in
-                        let isEarned = earned.contains { $0.threshold == milestone.threshold }
+            if MilestoneService.all.isEmpty {
+                Text("No milestones available.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.white.opacity(0.04))
+                    )
+            } else {
+                ScrollView(.horizontal, showsIndicators: false) {
+                    HStack(spacing: 12) {
+                        ForEach(MilestoneService.all) { milestone in
+                            let earnedState = isEarned(milestone)
 
-                        VStack(spacing: 4) {
-                            Text(milestone.emoji)
-                                .font(.system(size: 28))
-                                .grayscale(isEarned ? 0 : 1)
-                                .opacity(isEarned ? 1 : 0.3)
+                            VStack(spacing: 6) {
+                                Text(milestone.emoji.isEmpty ? "🏆" : milestone.emoji)
+                                    .font(.system(size: 28))
+                                    .grayscale(earnedState ? 0 : 1)
+                                    .opacity(earnedState ? 1 : 0.35)
 
-                            Text(milestone.name)
-                                .font(.caption2)
-                                .foregroundStyle(isEarned ? .white : .secondary)
+                                Text(milestone.name)
+                                    .font(.caption)
+                                    .bold()
+                                    .multilineTextAlignment(.center)
+                                    .foregroundStyle(earnedState ? .white : .secondary)
 
-                            Text("\(milestone.threshold)d")
-                                .font(.system(size: 9))
-                                .foregroundStyle(.secondary)
+                                Text("\(milestone.threshold)d")
+                                    .font(.caption2)
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(width: 90, height: 95)
+                            .padding(.vertical, 8)
+                            .background(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .fill(
+                                        earnedState
+                                        ? Color.white.opacity(0.08)
+                                        : Color.white.opacity(0.03)
+                                    )
+                            )
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 14)
+                                    .stroke(
+                                        earnedState
+                                        ? Color.white.opacity(0.12)
+                                        : Color.clear,
+                                        lineWidth: 1
+                                    )
+                            )
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(
+                                "\(milestone.name), \(milestone.threshold) day milestone, \(earnedState ? "earned" : "not earned")"
+                            )
                         }
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 6)
-                        .background(
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(isEarned ? Color.white.opacity(0.08) : Color.clear)
-                        )
                     }
+                    .padding(.horizontal, 2)
                 }
             }
         }

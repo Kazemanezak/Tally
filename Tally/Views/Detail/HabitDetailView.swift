@@ -17,32 +17,22 @@ struct HabitDetailView: View {
             if let viewModel {
                 ScrollView {
                     VStack(spacing: 24) {
-                        VStack(spacing: 8) {
-                            HabitIconView(icon: habit.emoji, size: 56, color: accent)
-
-                            Text(habit.name)
-                                .font(.title)
-                                .bold()
-                                .foregroundStyle(.white)
-                        }
-                        .padding(.top, 8)
+                        headerSection
 
                         statsCard(viewModel: viewModel)
 
-                        CalendarHeatMapView(
-                            data: viewModel.heatMapData(),
-                            accentColor: accent
-                        )
-                        .padding()
-                        .background(
-                            RoundedRectangle(cornerRadius: 14)
-                                .fill(Color.white.opacity(0.04))
-                        )
+                        heatMapSection(viewModel: viewModel)
 
                         MilestoneBadgeRow(earned: viewModel.earnedMilestones())
+
+                        recentActivitySection(viewModel: viewModel)
                     }
                     .padding()
                 }
+            } else {
+                ProgressView("Loading habit details...")
+                    .tint(.white)
+                    .foregroundStyle(.white)
             }
         }
         .navigationBarTitleDisplayMode(.inline)
@@ -63,13 +53,33 @@ struct HabitDetailView: View {
         }
     }
 
+    private var headerSection: some View {
+        VStack(spacing: 8) {
+            HabitIconView(icon: habit.emoji, size: 56, color: accent)
+
+            Text(habit.name)
+                .font(.title)
+                .bold()
+                .foregroundStyle(.white)
+
+            Text(habit.type == .build ? "Build Habit" : "Break Habit")
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+        }
+        .padding(.top, 8)
+    }
+
     private func statsCard(viewModel: HabitDetailViewModel) -> some View {
         VStack(alignment: .leading, spacing: 12) {
+            Text("Stats")
+                .font(.headline)
+                .foregroundStyle(.white)
+
             HStack {
-                Text("Streak:")
+                Text("Current Streak")
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text("\(viewModel.currentStreak) 🔥")
+                Text("\(viewModel.currentStreak) days")
                     .bold()
                     .foregroundStyle(.white)
             }
@@ -77,7 +87,7 @@ struct HabitDetailView: View {
             Divider().background(Color.white.opacity(0.1))
 
             HStack {
-                Text("Best:")
+                Text("Best Streak")
                     .foregroundStyle(.secondary)
                 Spacer()
                 Text("\(viewModel.bestStreak) days")
@@ -88,10 +98,10 @@ struct HabitDetailView: View {
             Divider().background(Color.white.opacity(0.1))
 
             HStack {
-                Text("Total:")
+                Text(habit.type == .build ? "Total Completions" : "Total Clean Days")
                     .foregroundStyle(.secondary)
                 Spacer()
-                Text("\(viewModel.totalCompletions) logs")
+                Text("\(viewModel.totalCompletions)")
                     .bold()
                     .foregroundStyle(.white)
             }
@@ -104,6 +114,67 @@ struct HabitDetailView: View {
         .background(
             RoundedRectangle(cornerRadius: 14)
                 .fill(accent.opacity(0.08))
+        )
+    }
+
+    private func heatMapSection(viewModel: HabitDetailViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Last 90 Days")
+                .font(.headline)
+                .foregroundStyle(.white)
+
+            CalendarHeatMapView(
+                data: viewModel.heatMapData(),
+                accentColor: accent
+            )
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color.white.opacity(0.04))
+        )
+    }
+
+    private func recentActivitySection(viewModel: HabitDetailViewModel) -> some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("Recent Activity")
+                .font(.headline)
+                .foregroundStyle(.white)
+
+            if viewModel.recentLogs.isEmpty {
+                Text("No activity recorded yet.")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
+            } else {
+                ForEach(viewModel.recentLogs, id: \.id) { log in
+                    HStack {
+                        Text(log.date, style: .date)
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+
+                        Spacer()
+
+                        if habit.type == .build {
+                            Text("\(log.completionCount)x")
+                                .bold()
+                                .foregroundStyle(.white)
+                        } else {
+                            Text(log.didSlip ? "Slip" : "Clean")
+                                .bold()
+                                .foregroundStyle(log.didSlip ? .red : .green)
+                        }
+                    }
+
+                    if log.id != viewModel.recentLogs.last?.id {
+                        Divider().background(Color.white.opacity(0.08))
+                    }
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color.white.opacity(0.04))
         )
     }
 }

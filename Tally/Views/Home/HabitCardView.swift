@@ -33,50 +33,21 @@ struct HabitCardView: View {
     }
 
     var body: some View {
-        Group {
-            if habit.type == .build {
-                cardContent
-                    .onTapGesture {
-                        let streakBefore = streakCount
-
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                            isTapped = true
-                        }
-
-                        viewModel.logCompletion(for: habit)
-
-                        let streakAfter = viewModel.streakCount(for: habit)
-                        if streakAfter > streakBefore {
-                            firePulse = true
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
-                                firePulse = false
-                            }
-                        }
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
-                                isTapped = false
-                            }
-                        }
+        cardContent
+            .onAppear {
+                if !isLoggedToday {
+                    withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
+                        isPulsing = true
                     }
-            } else {
-                cardContent
-            }
-        }
-        .onAppear {
-            if !isLoggedToday {
-                withAnimation(.easeInOut(duration: 1.0).repeatForever(autoreverses: true)) {
-                    isPulsing = true
                 }
             }
-        }
-        .onChange(of: isLoggedToday) { _, newValue in
-            if newValue {
-                withAnimation(.easeOut(duration: 0.3)) {
-                    isPulsing = false
+            .onChange(of: isLoggedToday) { _, newValue in
+                if newValue {
+                    withAnimation(.easeOut(duration: 0.3)) {
+                        isPulsing = false
+                    }
                 }
             }
-        }
     }
 
     private var cardContent: some View {
@@ -109,13 +80,20 @@ struct HabitCardView: View {
 
             if habit.type == .build {
                 let p = viewModel.completionProgress(for: habit)
-                ProgressRingView(
-                    progress: progress,
-                    accentColor: accent,
-                    current: p.current,
-                    goal: p.goal
-                )
-                .frame(width: 50, height: 50)
+
+                Button {
+                    logBuildHabit()
+                } label: {
+                    ProgressRingView(
+                        progress: progress,
+                        accentColor: accent,
+                        current: p.current,
+                        goal: p.goal
+                    )
+                    .frame(width: 50, height: 50)
+                    .scaleEffect(isTapped ? 0.92 : 1.0)
+                }
+                .buttonStyle(.plain)
             } else {
                 StreakCounterView(
                     dayCount: streakCount,
@@ -136,7 +114,31 @@ struct HabitCardView: View {
                 .stroke(accent.opacity(0.35), lineWidth: 1)
         )
         .shadow(color: Color.black.opacity(0.08), radius: 6, x: 0, y: 2)
-        .scaleEffect(isTapped ? 0.95 : 1.0)
         .opacity(isLoggedToday ? 1.0 : (isPulsing ? 0.7 : 1.0))
+    }
+
+    private func logBuildHabit() {
+        let streakBefore = streakCount
+
+        withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+            isTapped = true
+        }
+
+        viewModel.logCompletion(for: habit)
+
+        let streakAfter = viewModel.streakCount(for: habit)
+        if streakAfter > streakBefore {
+            firePulse = true
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.18) {
+                firePulse = false
+            }
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.5)) {
+                isTapped = false
+            }
+        }
     }
 }

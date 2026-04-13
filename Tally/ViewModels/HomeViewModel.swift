@@ -33,7 +33,13 @@ final class HomeViewModel {
             predicate: #Predicate { !$0.isArchived },
             sortBy: [SortDescriptor(\.sortOrder)]
         )
-        habits = (try? modelContext.fetch(descriptor)) ?? []
+
+        do {
+            habits = try modelContext.fetch(descriptor)
+        } catch {
+            print("❌ Failed to fetch habits:", error)
+            habits = []
+        }
     }
 
     func fetchArchivedHabits() {
@@ -41,21 +47,27 @@ final class HomeViewModel {
             predicate: #Predicate { $0.isArchived },
             sortBy: [SortDescriptor(\.sortOrder)]
         )
-        archivedHabits = (try? modelContext.fetch(descriptor)) ?? []
+
+        do {
+            archivedHabits = try modelContext.fetch(descriptor)
+        } catch {
+            print("❌ Failed to fetch archived habits:", error)
+            archivedHabits = []
+        }
     }
 
     // MARK: - Archive
 
     func archiveHabit(_ habit: Habit) {
         habit.isArchived = true
-        try? modelContext.save()
+        saveContext()
         fetchHabits()
         fetchArchivedHabits()
     }
 
     func unarchiveHabit(_ habit: Habit) {
         habit.isArchived = false
-        try? modelContext.save()
+        saveContext()
         fetchHabits()
         fetchArchivedHabits()
     }
@@ -64,7 +76,9 @@ final class HomeViewModel {
 
     func logCompletion(for habit: Habit) {
         let today = DateHelpers.startOfDay(Date())
-        let existingLog = habit.logs.first { DateHelpers.isSameDay($0.date, today) && !$0.didSlip }
+        let existingLog = habit.logs.first {
+            DateHelpers.isSameDay($0.date, today) && !$0.didSlip
+        }
 
         let previousBestStreak = streakEngine.bestStreak(for: habit)
 
@@ -78,19 +92,24 @@ final class HomeViewModel {
         }
 
         undoHabit = habit
-        try? modelContext.save()
+        saveContext()
 
-        let streakAfter = streakEngine.currentStreak(for: habit)
+        let newBestStreak = streakEngine.bestStreak(for: habit)
 
-        if let milestone = milestoneService.checkMilestone(previousBestStreak: previousBestStreak, newStreak: streakAfter) {
+        if let milestone = milestoneService.checkMilestone(
+            previousBestStreak: previousBestStreak,
+            newStreak: newBestStreak
+        ) {
             milestoneToShow = milestone
             showMilestoneOverlay = true
-        } else if streakAfter > previousBestStreak {
+        } else if streakEngine.currentStreak(for: habit) > 0 {
             HapticManager.medium()
         } else {
             HapticManager.light()
         }
 
+        fetchHabits()
+        fetchArchivedHabits()
         startUndoTimer()
     }
 
@@ -99,9 +118,12 @@ final class HomeViewModel {
         modelContext.insert(newLog)
         pendingUndoLog = newLog
         undoHabit = habit
-        try? modelContext.save()
+
+        saveContext()
 
         HapticManager.heavy()
+        fetchHabits()
+        fetchArchivedHabits()
         startUndoTimer()
     }
 
@@ -118,7 +140,8 @@ final class HomeViewModel {
         undoHabit = nil
         showUndoToast = false
         undoTask?.cancel()
-        try? modelContext.save()
+
+        saveContext()
         fetchHabits()
         fetchArchivedHabits()
     }
@@ -132,10 +155,12 @@ final class HomeViewModel {
 
     func moveHabit(from source: IndexSet, to destination: Int) {
         habits.move(fromOffsets: source, toOffset: destination)
+
         for (index, habit) in habits.enumerated() {
             habit.sortOrder = index
         }
-        try? modelContext.save()
+
+        saveContext()
     }
 
     // MARK: - Streak Helpers
@@ -157,12 +182,22 @@ final class HomeViewModel {
     private func startUndoTimer() {
         undoTask?.cancel()
         showUndoToast = true
+
         undoTask = Task {
             try? await Task.sleep(for: .seconds(5))
             guard !Task.isCancelled else { return }
+
             showUndoToast = false
             pendingUndoLog = nil
             undoHabit = nil
+        }
+    }
+
+    private func saveContext() {
+        do {
+            try modelContext.save()
+        } catch {
+            print("❌ Failed to save context:", error)
         }
     }
 }

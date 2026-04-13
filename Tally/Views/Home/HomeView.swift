@@ -25,21 +25,25 @@ struct HomeView: View {
 
                 if viewModel.showUndoToast {
                     UndoToastView(viewModel: viewModel)
+                        .zIndex(10)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
                 }
 
-                MilestoneOverlay(
-                    milestone: viewModel.milestoneToShow,
-                    isPresented: Binding(
-                        get: { viewModel.showMilestoneOverlay },
-                        set: { newValue in
-                            if newValue {
-                                viewModel.showMilestoneOverlay = true
-                            } else {
-                                viewModel.dismissMilestoneOverlay()
+                if viewModel.showMilestoneOverlay {
+                    MilestoneOverlay(
+                        milestone: viewModel.milestoneToShow,
+                        isPresented: Binding(
+                            get: { viewModel.showMilestoneOverlay },
+                            set: { newValue in
+                                if !newValue {
+                                    viewModel.dismissMilestoneOverlay()
+                                }
                             }
-                        }
+                        )
                     )
-                )
+                    .zIndex(20)
+                    .transition(.opacity)
+                }
             }
         }
         .animation(.spring(response: 0.3), value: viewModel?.showUndoToast)
@@ -48,10 +52,10 @@ struct HomeView: View {
                 viewModel = HomeViewModel(modelContext: modelContext)
             }
         }
-        .sheet(isPresented: $showAddSheet) {
+        .sheet(isPresented: $showAddSheet, onDismiss: {
             viewModel?.fetchHabits()
             viewModel?.fetchArchivedHabits()
-        } content: {
+        }) {
             AddHabitSheet(habitToEdit: nil)
                 .presentationDetents([.large])
         }

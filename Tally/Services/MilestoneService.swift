@@ -1,7 +1,9 @@
 import Foundation
 
-struct MilestoneDefinition: Equatable, Hashable {
+struct MilestoneDefinition: Identifiable, Equatable, Hashable {
+    let id = UUID()
     let name: String
+    let emoji: String
     let threshold: Int
     let animationType: AnimationType
 }
@@ -23,27 +25,23 @@ struct MilestoneService {
     }
 
     static let allMilestones: [MilestoneDefinition] = [
-        MilestoneDefinition(name: "Spark", threshold: 3, animationType: .particleBurst),
-        MilestoneDefinition(name: "Fire", threshold: 7, animationType: .flame),
-        MilestoneDefinition(name: "Lightning", threshold: 14, animationType: .lightning),
-        MilestoneDefinition(name: "Supernova", threshold: 30, animationType: .supernova),
-        MilestoneDefinition(name: "Legend", threshold: 100, animationType: .legendBadge)
+        MilestoneDefinition(name: "Spark", emoji: "✨", threshold: 3, animationType: .particleBurst),
+        MilestoneDefinition(name: "Fire", emoji: "🔥", threshold: 7, animationType: .flame),
+        MilestoneDefinition(name: "Lightning", emoji: "⚡", threshold: 14, animationType: .lightning),
+        MilestoneDefinition(name: "Supernova", emoji: "💥", threshold: 30, animationType: .supernova),
+        MilestoneDefinition(name: "Legend", emoji: "🏆", threshold: 100, animationType: .legendBadge)
     ]
 
-    /// Returns the highest milestone reached for a raw streak value.
-    /// This is the simple TRD-specified form.
+    static var all: [MilestoneDefinition] {
+        allMilestones
+    }
+
     func checkMilestone(streak: Int) -> MilestoneDefinition? {
         Self.allMilestones
             .filter { streak >= $0.threshold }
             .max(by: { $0.threshold < $1.threshold })
     }
 
-    /// Returns the highest newly reached milestone, if any,
-    /// by comparing the old best streak to the new streak.
-    ///
-    /// Example:
-    /// previousBestStreak = 6, newStreak = 7 -> Fire
-    /// previousBestStreak = 14, newStreak = 14 -> nil
     func checkMilestone(previousBestStreak: Int, newStreak: Int) -> MilestoneDefinition? {
         guard newStreak > previousBestStreak else { return nil }
 
@@ -54,7 +52,6 @@ struct MilestoneService {
             .max(by: { $0.threshold < $1.threshold })
     }
 
-    /// Returns all milestones the habit has earned based on best streak.
     func earnedMilestones(for habit: Habit, asOf date: Date = Date()) -> [MilestoneDefinition] {
         let best = streakEngine.bestStreak(for: habit, asOf: date)
 

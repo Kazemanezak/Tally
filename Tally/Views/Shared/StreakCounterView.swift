@@ -14,7 +14,7 @@ struct StreakCounterView: View {
                 .bold()
                 .foregroundStyle(accentColor)
 
-            Text("days")
+            Text(dayCount == 1 ? "day" : "days")
                 .font(.caption2)
                 .foregroundStyle(.secondary)
 
@@ -23,10 +23,13 @@ struct StreakCounterView: View {
             } label: {
                 Text("I slipped")
                     .font(.caption2)
-                    .foregroundStyle(.red.opacity(0.8))
+                    .foregroundStyle(.red.opacity(0.85))
+                    .padding(.top, 2)
             }
             .buttonStyle(.plain)
         }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("\(dayCount) day streak")
         .confirmationDialog(
             "Reset your streak?",
             isPresented: $showSlipConfirmation,
@@ -35,7 +38,8 @@ struct StreakCounterView: View {
             Button("Reset Streak", role: .destructive) {
                 onSlip()
             }
-            Button("Cancel", role: .cancel) {}
+
+            Button("Cancel", role: .cancel) { }
         } message: {
             Text("This will record a slip and reset your streak to 0.")
         }

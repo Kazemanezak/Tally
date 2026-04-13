@@ -1,10 +1,3 @@
-//
-//  MilestoneService.swift
-//  Tally
-//
-//  Created by David Castaneda on 3/29/26.
-//
-
 import SwiftUI
 
 struct MilestoneOverlay: View {
@@ -20,6 +13,7 @@ struct MilestoneOverlay: View {
                 ZStack {
                     Color.black
                         .opacity(hasAppeared ? 0.72 : 0.0)
+                        .ignoresSafeArea()
 
                     VStack(spacing: 20) {
                         Spacer()
@@ -61,7 +55,6 @@ struct MilestoneOverlay: View {
                             .opacity(hasAppeared ? 1.0 : 0.0)
                     }
                 }
-                .ignoresSafeArea()
                 .transition(.opacity)
                 .zIndex(999)
                 .animation(.easeInOut(duration: 0.25), value: isPresented)
@@ -84,13 +77,29 @@ struct MilestoneOverlay: View {
     private func animationView(for milestone: MilestoneDefinition) -> some View {
         switch milestone.animationType {
         case .particleBurst:
-            ParticleBurstView()
+            ParticleBurstView(
+                color: .yellow,
+                onComplete: nil
+            )
+
         case .flame:
-            FlameAnimationView()
+            FlameAnimationView(
+                color: .orange,
+                onComplete: nil
+            )
+
         case .lightning:
-            LightningEffectView()
+            LightningEffectView(
+                color: .yellow,
+                onComplete: nil
+            )
+
         case .supernova:
-            SupernovaView()
+            SupernovaView(
+                color: .purple,
+                onComplete: nil
+            )
+
         case .legendBadge:
             Image(systemName: "crown.fill")
                 .font(.system(size: 84, weight: .bold))
@@ -115,7 +124,9 @@ struct MilestoneOverlay: View {
     }
 
     private func showOverlay() {
-        hasAppeared = true
+        withAnimation(.easeInOut(duration: 0.25)) {
+            hasAppeared = true
+        }
 
         HapticManager.shared.playMilestone()
 
@@ -136,7 +147,15 @@ struct MilestoneOverlay: View {
 
         withAnimation(.easeInOut(duration: 0.22)) {
             hasAppeared = false
-            isPresented = false
+        }
+
+        Task {
+            try? await Task.sleep(for: .milliseconds(220))
+            guard !Task.isCancelled else { return }
+
+            await MainActor.run {
+                isPresented = false
+            }
         }
     }
 }
