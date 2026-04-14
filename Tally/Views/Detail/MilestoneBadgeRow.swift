@@ -30,16 +30,27 @@ struct MilestoneBadgeRow: View {
                             let earnedState = isEarned(milestone)
 
                             VStack(spacing: 6) {
+                                let isLegend = milestone.animationType == .legendBadge && earnedState
+
                                 Text(milestone.emoji.isEmpty ? "🏆" : milestone.emoji)
                                     .font(.system(size: 28))
                                     .grayscale(earnedState ? 0 : 1)
                                     .opacity(earnedState ? 1 : 0.35)
+                                    .symbolEffect(.pulse, isActive: isLegend)
 
                                 Text(milestone.name)
                                     .font(.caption)
                                     .bold()
                                     .multilineTextAlignment(.center)
-                                    .foregroundStyle(earnedState ? .white : .secondary)
+                                    .foregroundStyle(
+                                        isLegend
+                                        ? AnyShapeStyle(LinearGradient(
+                                            colors: [.yellow, .orange, .yellow],
+                                            startPoint: .leading,
+                                            endPoint: .trailing
+                                        ))
+                                        : AnyShapeStyle(earnedState ? .white : .secondary)
+                                    )
 
                                 Text("\(milestone.threshold)d")
                                     .font(.caption2)
@@ -58,10 +69,12 @@ struct MilestoneBadgeRow: View {
                             .overlay(
                                 RoundedRectangle(cornerRadius: 14)
                                     .stroke(
-                                        earnedState
+                                        earnedState && milestone.animationType == .legendBadge
+                                        ? Color.yellow.opacity(0.3)
+                                        : earnedState
                                         ? Color.white.opacity(0.12)
                                         : Color.clear,
-                                        lineWidth: 1
+                                        lineWidth: earnedState && milestone.animationType == .legendBadge ? 1.5 : 1
                                     )
                             )
                             .accessibilityElement(children: .combine)

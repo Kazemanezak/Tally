@@ -6,6 +6,10 @@ struct HomeView: View {
     @State private var viewModel: HomeViewModel?
     @State private var showAddSheet = false
     @State private var showArchivedSection = false
+    #if DEBUG
+    @State private var showDevMenu = false
+    @State private var daysSimulated = 0
+    #endif
 
     var body: some View {
         ZStack {
@@ -65,7 +69,95 @@ struct HomeView: View {
             }
         }
         .navigationBarHidden(true)
+        #if DEBUG
+        .sheet(isPresented: $showDevMenu) {
+            devMenuSheet
+        }
+        #endif
     }
+
+    #if DEBUG
+    private var devMenuSheet: some View {
+        NavigationStack {
+            List {
+                Section("Demo Data") {
+                    Button {
+                        DemoData.forceSeed(modelContext: modelContext)
+                        viewModel?.fetchHabits()
+                        viewModel?.fetchArchivedHabits()
+                        daysSimulated = 0
+                        showDevMenu = false
+                    } label: {
+                        Label("Seed Demo Data", systemImage: "tray.and.arrow.down.fill")
+                    }
+
+                    Button(role: .destructive) {
+                        DemoData.clearAll(modelContext: modelContext)
+                        viewModel?.fetchHabits()
+                        viewModel?.fetchArchivedHabits()
+                        daysSimulated = 0
+                        showDevMenu = false
+                    } label: {
+                        Label("Clear All Data", systemImage: "trash.fill")
+                    }
+                }
+
+                Section("Time Simulation") {
+                    Button {
+                        DemoData.simulateNextDay(modelContext: modelContext)
+                        daysSimulated += 1
+                        viewModel?.fetchHabits()
+                        viewModel?.fetchArchivedHabits()
+                    } label: {
+                        Label("Advance +1 Day", systemImage: "forward.fill")
+                    }
+
+                    Button {
+                        for _ in 0..<7 {
+                            DemoData.simulateNextDay(modelContext: modelContext)
+                        }
+                        daysSimulated += 7
+                        viewModel?.fetchHabits()
+                        viewModel?.fetchArchivedHabits()
+                    } label: {
+                        Label("Advance +7 Days", systemImage: "forward.end.fill")
+                    }
+
+                    if daysSimulated > 0 {
+                        Text("Simulated \(daysSimulated) day\(daysSimulated == 1 ? "" : "s") forward")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
+                }
+
+                Section("Test Animations") {
+                    ForEach(MilestoneService.all) { milestone in
+                        Button {
+                            viewModel?.milestoneToShow = milestone
+                            viewModel?.showMilestoneOverlay = true
+                            showDevMenu = false
+                        } label: {
+                            Label(
+                                "\(milestone.emoji) \(milestone.name) (\(milestone.threshold)d)",
+                                systemImage: "play.circle.fill"
+                            )
+                        }
+                    }
+                }
+            }
+            .navigationTitle("Dev Menu")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") {
+                        showDevMenu = false
+                    }
+                }
+            }
+        }
+        .presentationDetents([.medium])
+    }
+    #endif
 
     private func header(viewModel: HomeViewModel) -> some View {
         HStack {
@@ -75,6 +167,16 @@ struct HomeView: View {
                 .foregroundStyle(.primary)
 
             Spacer()
+
+            #if DEBUG
+            Button {
+                showDevMenu = true
+            } label: {
+                Image(systemName: "wrench.and.screwdriver.fill")
+                    .font(.title3)
+                    .foregroundStyle(.orange)
+            }
+            #endif
 
             if !viewModel.archivedHabits.isEmpty {
                 Button {

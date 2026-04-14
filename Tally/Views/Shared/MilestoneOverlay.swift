@@ -101,10 +101,10 @@ struct MilestoneOverlay: View {
             )
 
         case .legendBadge:
-            Image(systemName: "crown.fill")
-                .font(.system(size: 84, weight: .bold))
-                .foregroundStyle(.yellow)
-                .symbolEffect(.bounce, value: hasAppeared)
+            LegendBadgeView(
+                color: .yellow,
+                onComplete: nil
+            )
         }
     }
 
@@ -128,7 +128,7 @@ struct MilestoneOverlay: View {
             hasAppeared = true
         }
 
-        HapticManager.shared.playMilestone()
+        HapticManager.heavy()
 
         dismissTask?.cancel()
         dismissTask = Task {

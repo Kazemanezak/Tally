@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -32,13 +32,23 @@
 		FE8417172F79812800F09B6A /* SupernovaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417162F79812800F09B6A /* SupernovaView.swift */; };
 		FE84171A2F79813700F09B6A /* DateHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417192F79813700F09B6A /* DateHelpers.swift */; };
 		FE84171D2F79814800F09B6A /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84171C2F79814800F09B6A /* HapticManager.swift */; };
-		FE8417202F79817E00F09B6A /* StreakEngineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */; };
-		FE8417232F79819200F09B6A /* MilestoneServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */; };
 		FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */; };
 		FFBAF4082F86DCAD0012CA32 /* Color+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */; };
 		FFBAF40A2F86DCD70012CA32 /* UndoToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */; };
 		FFBAF4182F86F6E50012CA32 /* HabitIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4172F86F6E50012CA32 /* HabitIconView.swift */; };
+		FFBAF42F2F8DDAA20012CA32 /* LegendBadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF42E2F8DDAA20012CA32 /* LegendBadgeView.swift */; };
+		FFBAF4312F8DDB970012CA32 /* DemoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBAF4302F8DDB970012CA32 /* DemoData.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		FFBAF4212F8DD4280012CA32 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE8416B32F797D8700F09B6A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE8416BA2F797D8700F09B6A;
+			remoteInfo = Tally;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		FE8416BB2F797D8700F09B6A /* Tally.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tally.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,16 +78,28 @@
 		FE8417162F79812800F09B6A /* SupernovaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupernovaView.swift; sourceTree = "<group>"; };
 		FE8417192F79813700F09B6A /* DateHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelpers.swift; sourceTree = "<group>"; };
 		FE84171C2F79814800F09B6A /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
-		FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreakEngineTests.swift; sourceTree = "<group>"; };
-		FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MilestoneServiceTests.swift; sourceTree = "<group>"; };
 		FE8417252F79829C00F09B6A /* CalendarHeatMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarHeatMapView.swift; sourceTree = "<group>"; };
 		FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Hex.swift"; sourceTree = "<group>"; };
 		FFBAF4092F86DCD70012CA32 /* UndoToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoToastView.swift; sourceTree = "<group>"; };
 		FFBAF4172F86F6E50012CA32 /* HabitIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HabitIconView.swift; sourceTree = "<group>"; };
+		FFBAF41D2F8DD4280012CA32 /* TallyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TallyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FFBAF42E2F8DDAA20012CA32 /* LegendBadgeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LegendBadgeView.swift; sourceTree = "<group>"; };
+		FFBAF4302F8DDB970012CA32 /* DemoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		FFBAF41E2F8DD4280012CA32 /* TallyTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = TallyTests; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		FE8416B82F797D8700F09B6A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFBAF41A2F8DD4280012CA32 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -91,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				FE8416BD2F797D8700F09B6A /* Tally */,
+				FFBAF41E2F8DD4280012CA32 /* TallyTests */,
 				FE8416BC2F797D8700F09B6A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +122,7 @@
 			isa = PBXGroup;
 			children = (
 				FE8416BB2F797D8700F09B6A /* Tally.app */,
+				FFBAF41D2F8DD4280012CA32 /* TallyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -176,6 +200,7 @@
 				FE8417102F7980FB00F09B6A /* FlameAnimationView.swift */,
 				FE8417132F79811000F09B6A /* LightingEffectView.swift */,
 				FE8417162F79812800F09B6A /* SupernovaView.swift */,
+				FFBAF42E2F8DDAA20012CA32 /* LegendBadgeView.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -186,6 +211,7 @@
 				FE8417192F79813700F09B6A /* DateHelpers.swift */,
 				FE84171C2F79814800F09B6A /* HapticManager.swift */,
 				FFBAF4072F86DCAC0012CA32 /* Color+Hex.swift */,
+				FFBAF4302F8DDB970012CA32 /* DemoData.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -193,8 +219,6 @@
 		FE8416D52F797E2600F09B6A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				FE84171F2F79817E00F09B6A /* StreakEngineTests.swift */,
-				FE8417222F79819200F09B6A /* MilestoneServiceTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -258,6 +282,29 @@
 			productReference = FE8416BB2F797D8700F09B6A /* Tally.app */;
 			productType = "com.apple.product-type.application";
 		};
+		FFBAF41C2F8DD4280012CA32 /* TallyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFBAF4252F8DD4280012CA32 /* Build configuration list for PBXNativeTarget "TallyTests" */;
+			buildPhases = (
+				FFBAF4192F8DD4280012CA32 /* Sources */,
+				FFBAF41A2F8DD4280012CA32 /* Frameworks */,
+				FFBAF41B2F8DD4280012CA32 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				FFBAF4222F8DD4280012CA32 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				FFBAF41E2F8DD4280012CA32 /* TallyTests */,
+			);
+			name = TallyTests;
+			packageProductDependencies = (
+			);
+			productName = TallyTests;
+			productReference = FFBAF41D2F8DD4280012CA32 /* TallyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -265,11 +312,15 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 1240;
+				LastSwiftUpdateCheck = 2640;
 				LastUpgradeCheck = 2640;
 				TargetAttributes = {
 					FE8416BA2F797D8700F09B6A = {
 						CreatedOnToolsVersion = 12.4;
+					};
+					FFBAF41C2F8DD4280012CA32 = {
+						CreatedOnToolsVersion = 26.4;
+						TestTargetID = FE8416BA2F797D8700F09B6A;
 					};
 				};
 			};
@@ -287,6 +338,7 @@
 			projectRoot = "";
 			targets = (
 				FE8416BA2F797D8700F09B6A /* Tally */,
+				FFBAF41C2F8DD4280012CA32 /* TallyTests */,
 			);
 		};
 /* End PBXProject section */
@@ -301,6 +353,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FFBAF41B2F8DD4280012CA32 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -308,7 +367,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE8417232F79819200F09B6A /* MilestoneServiceTests.swift in Sources */,
 				FE8416D72F797EAB00F09B6A /* Habit.swift in Sources */,
 				FFBAF4182F86F6E50012CA32 /* HabitIconView.swift in Sources */,
 				FE84170E2F7980E100F09B6A /* ParticleBurstView.swift in Sources */,
@@ -318,7 +376,6 @@
 				FE8416E12F797EE400F09B6A /* HomeViewModel.swift in Sources */,
 				FE8417172F79812800F09B6A /* SupernovaView.swift in Sources */,
 				FE8416FB2F79801E00F09B6A /* AddHabitSheet.swift in Sources */,
-				FE8417202F79817E00F09B6A /* StreakEngineTests.swift in Sources */,
 				FFBAF40A2F86DCD70012CA32 /* UndoToastView.swift in Sources */,
 				FE8416EE2F797F8600F09B6A /* HabitCardView.swift in Sources */,
 				FE84171D2F79814800F09B6A /* HapticManager.swift in Sources */,
@@ -329,18 +386,35 @@
 				FE8416C12F797D8700F09B6A /* ContentView.swift in Sources */,
 				FFBAF4082F86DCAD0012CA32 /* Color+Hex.swift in Sources */,
 				FE8417262F79829C00F09B6A /* CalendarHeatMapView.swift in Sources */,
+				FFBAF4312F8DDB970012CA32 /* DemoData.swift in Sources */,
 				FE8416F12F797F9C00F09B6A /* HabitDetailView.swift in Sources */,
 				FE8417012F79805000F09B6A /* StreakCounterView.swift in Sources */,
 				FE8417112F7980FB00F09B6A /* FlameAnimationView.swift in Sources */,
 				FE8416EB2F797F7300F09B6A /* HomeView.swift in Sources */,
 				FE8416BF2F797D8700F09B6A /* TallyApp.swift in Sources */,
 				FE8417082F7980AE00F09B6A /* StreakEngine.swift in Sources */,
+				FFBAF42F2F8DDAA20012CA32 /* LegendBadgeView.swift in Sources */,
 				FE8416DB2F797EBE00F09B6A /* HabitLog.swift in Sources */,
 				FE8417142F79811000F09B6A /* LightingEffectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FFBAF4192F8DD4280012CA32 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FFBAF4222F8DD4280012CA32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE8416BA2F797D8700F09B6A /* Tally */;
+			targetProxy = FFBAF4212F8DD4280012CA32 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		FE8416C82F797D8B00F09B6A /* Debug */ = {
@@ -470,6 +544,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Tally/Preview Content\"";
+				DEVELOPMENT_TEAM = PU684LFBK4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tally/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -491,6 +566,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Tally/Preview Content\"";
+				DEVELOPMENT_TEAM = PU684LFBK4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Tally/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
@@ -502,6 +578,59 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		FFBAF4232F8DD4280012CA32 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PU684LFBK4;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fiu.TallyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tally.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tally";
+			};
+			name = Debug;
+		};
+		FFBAF4242F8DD4280012CA32 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = PU684LFBK4;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.4;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = fiu.TallyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Tally.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Tally";
 			};
 			name = Release;
 		};
@@ -522,6 +651,15 @@
 			buildConfigurations = (
 				FE8416CB2F797D8B00F09B6A /* Debug */,
 				FE8416CC2F797D8B00F09B6A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFBAF4252F8DD4280012CA32 /* Build configuration list for PBXNativeTarget "TallyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FFBAF4232F8DD4280012CA32 /* Debug */,
+				FFBAF4242F8DD4280012CA32 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

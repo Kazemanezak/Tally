@@ -10,10 +10,23 @@ import SwiftData
 
 @main
 struct TallyApp: App {
+    let container: ModelContainer
+
+    init() {
+        do {
+            container = try ModelContainer(for: Habit.self, HabitLog.self)
+        } catch {
+            fatalError("Failed to create ModelContainer: \(error)")
+        }
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    DemoData.seedIfNeeded(modelContext: container.mainContext)
+                }
         }
-        .modelContainer(for: [Habit.self, HabitLog.self])
+        .modelContainer(container)
     }
 }

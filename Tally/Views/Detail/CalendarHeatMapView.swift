@@ -33,7 +33,7 @@ struct CalendarHeatMapView: View {
 
             HStack(alignment: .top, spacing: 6) {
                 VStack(spacing: 3) {
-                    ForEach(weekdaySymbols, id: \.self) { day in
+                    ForEach(Array(weekdaySymbols.enumerated()), id: \.offset) { _, day in
                         Text(day)
                             .font(.system(size: 9, weight: .medium))
                             .foregroundStyle(.secondary)
